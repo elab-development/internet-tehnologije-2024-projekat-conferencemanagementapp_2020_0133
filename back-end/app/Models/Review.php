@@ -16,4 +16,14 @@ class Review extends Model
         'comments',
         'recommendation',
     ];
+
+    public function paper()
+    {
+        return $this->belongsTo(Paper::class);
+    }
+
+    public function reviewer()
+    {
+        return $this->belongsTo(User::class, 'reviewer_id');
+    }
 }

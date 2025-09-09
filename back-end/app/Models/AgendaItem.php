@@ -19,4 +19,14 @@ class AgendaItem extends Model
         'start_time',
         'end_time',
     ];
+
+    public function conference()
+    {
+        return $this->belongsTo(Conference::class);
+    }
+
+    public function speaker()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

@@ -26,4 +26,35 @@ class Conference extends Model
         'contact_phone',
         'created_by',
     ];
+
+
+    public function creator()
+    {
+        return $this->belongsTo(User::class, 'created_by');
+    }
+
+    public function agendaItems()
+    {
+        return $this->hasMany(AgendaItem::class);
+    }
+
+    public function papers()
+    {
+        return $this->hasManyThrough(Paper::class, AgendaItem::class);
+    }
+
+    public function ticketTypes()
+    {
+        return $this->hasMany(TicketType::class);
+    }
+
+    public function topics()
+    {
+        return $this->belongsToMany(Topic::class, 'conference_topic');
+    }
+
+    public function moderators()
+    {
+        return $this->belongsToMany(User::class, 'conference_moderator');
+    }
 }

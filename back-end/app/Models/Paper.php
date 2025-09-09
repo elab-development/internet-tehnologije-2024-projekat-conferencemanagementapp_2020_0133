@@ -20,4 +20,19 @@ class Paper extends Model
         'main_author_id',
         'co_authors',
     ];
+
+    public function topic()
+    {
+        return $this->belongsTo(Topic::class);
+    }
+
+    public function mainAuthor()
+    {
+        return $this->belongsTo(User::class, 'main_author_id');
+    }
+
+    public function reviews()
+    {
+        return $this->hasMany(Review::class);
+    }
 }

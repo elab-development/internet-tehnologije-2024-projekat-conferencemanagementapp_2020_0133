@@ -18,4 +18,14 @@ class Ticket extends Model
         'delivery_method',
         'qr_code',
     ];
+
+    public function ticketType()
+    {
+        return $this->belongsTo(TicketType::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

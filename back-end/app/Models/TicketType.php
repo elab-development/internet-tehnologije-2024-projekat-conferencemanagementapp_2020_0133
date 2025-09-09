@@ -17,4 +17,14 @@ class TicketType extends Model
         'price',
         'quantity',
     ];
+
+    public function conference()
+    {
+        return $this->belongsTo(Conference::class);
+    }
+
+    public function tickets()
+    {
+        return $this->hasMany(Ticket::class);
+    }
 }
