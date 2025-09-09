@@ -21,6 +21,7 @@ return new class extends Migration
             $table->foreignId('topic_id')->constrained('topics')->cascadeOnDelete();
             $table->foreignId('main_author_id')->constrained('users')->cascadeOnDelete();
             $table->text('co_authors')->nullable();
+            $table->foreignId('conference_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }

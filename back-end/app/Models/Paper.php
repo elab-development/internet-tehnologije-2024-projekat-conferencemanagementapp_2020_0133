@@ -26,6 +26,10 @@ class Paper extends Model
         return $this->belongsTo(Topic::class);
     }
 
+    public function conference()
+    {
+        return $this->belongsTo(Conference::class);
+    }
     public function mainAuthor()
     {
         return $this->belongsTo(User::class, 'main_author_id');

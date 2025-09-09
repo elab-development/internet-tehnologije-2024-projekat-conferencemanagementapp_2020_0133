@@ -2,7 +2,8 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Conference;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 
 class ConferenceSeeder extends Seeder
@@ -12,6 +13,20 @@ class ConferenceSeeder extends Seeder
      */
     public function run(): void
     {
-        
+        $organizers = User::role('organizer')->get();
+        $moderators = User::role('moderator')->get(); 
+
+        foreach ($organizers as $organizer) {
+
+            $conferences = Conference::factory()->count(2)->create([
+                'created_by' => $organizer->id,
+            ]);
+
+            foreach ($conferences as $conference) {
+
+                $assignedModerators = $moderators->random(rand(1, min(3, $moderators->count())))->pluck('id');
+                $conference->moderators()->attach($assignedModerators);
+            }
+        }
     }
 }
