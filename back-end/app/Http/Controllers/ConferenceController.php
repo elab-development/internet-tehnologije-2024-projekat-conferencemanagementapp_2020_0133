@@ -7,7 +7,9 @@ use App\Http\Requests\StoreConferenceRequest;
 use App\Http\Requests\UpdateConferenceRequest;
 use App\Http\Resources\ConferenceDetailResource;
 use App\Http\Resources\ConferencePreviewResource;
+use App\Services\ConferenceService;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class ConferenceController extends Controller
 {
@@ -40,7 +42,8 @@ class ConferenceController extends Controller
      */
     public function store(StoreConferenceRequest $request)
     {
-        //
+        $conference = ConferenceService::createConference($request->validated(), $request->user()->id);
+        return new ConferenceDetailResource($conference->load(['topics', 'agendaItems', 'ticketTypes']));
     }
 
     /**

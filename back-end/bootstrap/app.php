@@ -12,6 +12,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Spatie\Permission\Middleware\RoleMiddleware;
 use Spatie\Permission\Middleware\PermissionMiddleware;
 use Spatie\Permission\Middleware\RoleOrPermissionMiddleware;
+use Symfony\Component\Routing\Exception\RouteNotFoundException;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -30,9 +31,6 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withExceptions(function (Exceptions $exceptions): void {
         $exceptions->renderable(function (\Exception $e, Request $request) {
 
-            if (!$request->is('api/*')) {
-                return null;
-            }
 
 
             Log::error($e);
@@ -47,7 +45,7 @@ return Application::configure(basePath: dirname(__DIR__))
                 ], 422);
             }
 
-            if ($e instanceof AuthenticationException) {
+            if ($e instanceof AuthenticationException || $e instanceof RouteNotFoundException) {
                 return response()->json([
                     'success' => false,
                     'message' => 'Unauthenticated',
@@ -71,6 +69,7 @@ return Application::configure(basePath: dirname(__DIR__))
                 ], 405);
             }
 
+            
             return response()->json([
                 'success' => false,
                 'message' => $e->getMessage(),
