@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ConferenceController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserConferencesController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -20,3 +21,5 @@ Route::apiResource('conferences', ConferenceController::class)
     ->only(['index', 'show']);
 Route::apiResource('/conferences', ConferenceController::class)
     ->middleware(['auth:sanctum', 'role:organizer'])->except(['index', 'show']);
+Route::get('/user/{id}/conferences', UserConferencesController::class)
+    ->middleware(['auth:sanctum', 'role:organizer']);
