@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ConferenceController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -15,3 +16,7 @@ Route::prefix('auth')->group(function () {
     Route::post('/forgot-password', [ForgotPasswordController::class, 'forgotPassword']);
     Route::post('/reset-password', [ForgotPasswordController::class, 'resetPassword']);
 });
+Route::apiResource('conferences', ConferenceController::class)
+    ->only(['index', 'show']);
+Route::apiResource('/conferences', ConferenceController::class)
+    ->middleware(['auth:sanctum', 'role:organizer'])->except(['index', 'show']);

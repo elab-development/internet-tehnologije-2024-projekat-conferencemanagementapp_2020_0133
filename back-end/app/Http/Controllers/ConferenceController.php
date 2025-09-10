@@ -5,15 +5,25 @@ namespace App\Http\Controllers;
 use App\Models\Conference;
 use App\Http\Requests\StoreConferenceRequest;
 use App\Http\Requests\UpdateConferenceRequest;
+use App\Http\Resources\ConferencePreviewResource;
+use Carbon\Carbon;
 
 class ConferenceController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+        $conferences = Conference::with('topics')
+            ->where('end_date', '>', Carbon::today())
+            ->orderBy('start_date', 'asc')
+            ->paginate(10);
+
+        return ConferencePreviewResource::collection($conferences)
+            ->response()
+            ->setStatusCode(200);
     }
 
     /**
