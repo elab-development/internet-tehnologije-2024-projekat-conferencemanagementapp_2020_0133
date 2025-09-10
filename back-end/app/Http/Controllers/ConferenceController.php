@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Conference;
 use App\Http\Requests\StoreConferenceRequest;
 use App\Http\Requests\UpdateConferenceRequest;
+use App\Http\Resources\ConferenceDetailResource;
 use App\Http\Resources\ConferencePreviewResource;
 use Carbon\Carbon;
 
@@ -47,7 +48,8 @@ class ConferenceController extends Controller
      */
     public function show(Conference $conference)
     {
-        //
+        $conference->load(['topics', 'agendaItems', 'ticketTypes']);
+        return new ConferenceDetailResource($conference);
     }
 
     /**
