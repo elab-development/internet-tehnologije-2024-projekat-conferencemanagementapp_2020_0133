@@ -68,7 +68,8 @@ class ConferenceController extends Controller
      */
     public function update(UpdateConferenceRequest $request, Conference $conference)
     {
-        //
+        $conference = ConferenceService::updateConference($request->all(), $conference);
+        return new ConferenceDetailResource($conference->load(['topics', 'agendaItems', 'ticketTypes']));
     }
 
     /**
