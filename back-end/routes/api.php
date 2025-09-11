@@ -27,3 +27,5 @@ Route::get('/user/{id}/conferences', UserConferencesController::class)
     ->middleware(['auth:sanctum', 'role:organizer']);
 Route::post('/reviews', ReviewController::class)->middleware(['auth:sanctum', 'role:moderator']);
 Route::post('/papers', [PaperController::class, 'store'])->middleware(['auth:sanctum']);
+Route::get('conference/{conference}/papers', [PaperController::class, "getPapersOfConference"])
+->middleware(['auth:sanctum', 'role:moderator']);

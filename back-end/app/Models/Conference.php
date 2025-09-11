@@ -40,7 +40,7 @@ class Conference extends Model
 
     public function papers()
     {
-        return $this->hasManyThrough(Paper::class, AgendaItem::class);
+        return $this->hasMany(Paper::class);
     }
 
     public function ticketTypes()
