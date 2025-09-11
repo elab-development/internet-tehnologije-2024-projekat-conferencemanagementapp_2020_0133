@@ -9,6 +9,7 @@ use App\Http\Resources\ConferenceDetailResource;
 use App\Http\Resources\ConferencePreviewResource;
 use App\Services\ConferenceService;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class ConferenceController extends Controller
@@ -77,6 +78,12 @@ class ConferenceController extends Controller
      */
     public function destroy(Conference $conference)
     {
-        //
+        
+        if ($conference->created_by !== Auth::id()) {
+            return response()->json(['message' => 'Forbidden'], 403);
+        }
+
+        $conference->delete();
+
     }
 }
