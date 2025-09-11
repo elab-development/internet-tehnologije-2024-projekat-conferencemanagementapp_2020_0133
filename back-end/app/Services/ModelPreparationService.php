@@ -52,4 +52,16 @@ class ModelPreparationService
             'quantity' => $ticket['quantity'],
         ];
     }
+
+    public static function preparePaper(array $paper, $filePath, $userId): array{
+        return [
+            'title' => $paper['title'],
+            'abstract' => $paper['abstract'],
+            'file_path' => $filePath,
+            'conference_id' => intval($paper['conferenceId']), // mapiramo camelCase → snake_case
+            'main_author_id' => $userId,
+            'topic_id' => $paper['topicId'],
+            'co_authors' => $paper['coAuthors'] ?? null,
+        ];
+    }
 }

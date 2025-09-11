@@ -14,6 +14,7 @@ class Paper extends Model
         'title',
         'abstract',
         'file_path',
+        'conference_id',
         'submission_date',
         'status',
         'topic_id',
