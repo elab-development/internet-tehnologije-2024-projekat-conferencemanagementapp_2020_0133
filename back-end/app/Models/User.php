@@ -77,4 +77,9 @@ class User extends Authenticatable
         return $this->belongsToMany(Conference::class, 'conference_moderator');
     }
 
+    public function conferences()
+    {
+        return $this->belongsToMany(Conference::class, 'conference_user');
+    }
+
 }

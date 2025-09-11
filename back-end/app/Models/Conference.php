@@ -57,4 +57,9 @@ class Conference extends Model
     {
         return $this->belongsToMany(User::class, 'conference_moderator');
     }
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class, 'conference_user');
+    }
 }
