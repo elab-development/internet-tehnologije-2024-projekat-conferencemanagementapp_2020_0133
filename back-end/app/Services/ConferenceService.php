@@ -106,7 +106,14 @@ class ConferenceService
             $toDeleteTickets = array_diff($existingTicketIds, $newTicketIds);
             $conference->ticketTypes()->whereIn('id', $toDeleteTickets)->delete();
 
-            return $conference;
+
+            if (!empty($data['moderators'])) {
+                $moderators = User::whereIn('email', $data['moderators'])->role('moderator');
+                $conference->users()->sync($moderators->pluck('id')); 
+            } else { 
+                $conference->users()->detach(); 
+            }
+                return $conference;
         });
     }
 }
