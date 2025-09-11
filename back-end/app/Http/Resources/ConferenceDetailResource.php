@@ -51,6 +51,7 @@ class ConferenceDetailResource extends JsonResource
                     'quantity' => $ticket->quantity,
                 ];
             }),
+            'moderators' => $this->users->pluck('id'),
         ];
     }
 }

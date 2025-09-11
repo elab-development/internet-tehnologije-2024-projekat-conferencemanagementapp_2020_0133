@@ -5,7 +5,7 @@ namespace App\Services;
 
 use App\Models\Conference;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
+use App\Models\User;
 
 class ConferenceService
 {
@@ -41,6 +41,13 @@ class ConferenceService
                 $conference->ticketTypes()->create($ticket);
             }
 
+            if (!empty($data['moderators'])) {
+                $moderators = User::whereIn('email', $data['moderators'])
+                    ->role('moderator')
+                    ->get();
+
+                $conference->users()->attach($moderators->pluck('id'));
+            }
 
             return $conference->load(['topics', 'agendaItems', 'ticketTypes']);
         });

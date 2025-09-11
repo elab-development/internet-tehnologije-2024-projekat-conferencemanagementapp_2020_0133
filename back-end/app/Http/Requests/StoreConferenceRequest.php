@@ -58,6 +58,10 @@ class StoreConferenceRequest extends FormRequest
             'ticketTypes.*.description' => 'nullable|string',
             'ticketTypes.*.price' => 'required|numeric|min:0',
             'ticketTypes.*.quantity' => 'required|integer|min:1',
+
+            //Moderators
+            'moderators' => 'nullable|array',
+            'moderators.*' => 'required|email|exists:users,email',
         ];
     }
 }
