@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserConferencesController;
 use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\TicketController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -29,3 +30,4 @@ Route::post('/reviews', ReviewController::class)->middleware(['auth:sanctum', 'r
 Route::post('/papers', [PaperController::class, 'store'])->middleware(['auth:sanctum']);
 Route::get('conference/{conference}/papers', [PaperController::class, "getPapersOfConference"])
 ->middleware(['auth:sanctum', 'role:moderator']);
+Route::post('/tickets', [TicketController::class, "purchaseTicket"])->middleware('auth:sanctum');
