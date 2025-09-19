@@ -23,7 +23,7 @@ class ConferenceController extends Controller
         $conferences = Conference::with('topics')
             ->where('end_date', '>', Carbon::today())
             ->orderBy('start_date', 'asc')
-            ->paginate(10);
+            ->paginate(1);
 
         return ConferencePreviewResource::collection($conferences)
             ->response()
@@ -53,7 +53,7 @@ class ConferenceController extends Controller
     public function show(Conference $conference)
     {
         $conference->load(['topics', 'agendaItems', 'ticketTypes']);
-        return new ConferenceDetailResource($conference);
+        return response() ->json(new ConferenceDetailResource($conference));
     }
 
     /**

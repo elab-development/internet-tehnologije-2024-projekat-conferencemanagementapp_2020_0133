@@ -18,8 +18,10 @@ class AuthController extends Controller
         $user = User::create($userData);
         $user->assignRole('attender');
 
+        $expiresAt = now()->addMinutes(config('sanctum.expiration'));
 
-        $token = $user->createToken('auth_token')->plainTextToken;
+        $token = $user->createToken('auth_token', ['*'], $expiresAt
+        )->plainTextToken;
 
         return response()->json([
             'user'  => new UserResource($user),
@@ -38,7 +40,12 @@ class AuthController extends Controller
             ], 401);
         }
 
-        $token = $user->createToken('auth_token')->plainTextToken;
+        $expiresAt = now()->addMinutes(config('sanctum.expiration'));
+
+        $token = $user->createToken(
+            'auth_token',
+            ['*'],
+            $expiresAt)->plainTextToken;
 
         return response()->json([
             'user' => new UserResource($user),

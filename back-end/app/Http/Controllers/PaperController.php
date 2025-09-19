@@ -17,10 +17,10 @@ class PaperController extends Controller
     {
 
         $filePath = $request['file']->store('papers', 'public');
-        Log::info($request);
+        
         $model = ModelPreparationService::preparePaper($request->validated(), $filePath, Auth::id()) +
             ['status' => 'Submitted'];
-        Log::info($model);
+        
         $paper = Paper::create(
             $model
         );
