@@ -9,8 +9,8 @@ use App\Http\Resources\ConferenceDetailResource;
 use App\Http\Resources\ConferencePreviewResource;
 use App\Services\ConferenceService;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 
 class ConferenceController extends Controller
 {
@@ -18,25 +18,33 @@ class ConferenceController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $conferences = Conference::with('topics')
+
+        $conferences = null;
+    
+        if($request->has('limit')) {
+            $limit = $request->input('limit');
+            $conferences = Conference::with('topics')
+                ->where('end_date', '>', Carbon::today())
+                ->orderBy('start_date', 'asc')
+                ->limit($limit)
+                ->get();
+                return response()->json(ConferencePreviewResource::collection($conferences), 200);
+        } else {
+            $conferences = Conference::with('topics')
             ->where('end_date', '>', Carbon::today())
             ->orderBy('start_date', 'asc')
             ->paginate(1);
+        }
+        
 
         return ConferencePreviewResource::collection($conferences)
             ->response()
             ->setStatusCode(200);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
+
 
     /**
      * Store a newly created resource in storage.
@@ -56,13 +64,7 @@ class ConferenceController extends Controller
         return response() ->json(new ConferenceDetailResource($conference));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Conference $conference)
-    {
-        //
-    }
+
 
     /**
      * Update the specified resource in storage.
@@ -86,4 +88,7 @@ class ConferenceController extends Controller
         $conference->delete();
 
     }
+
+
+    
 }

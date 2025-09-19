@@ -16,6 +16,7 @@ class ConferencePreviewResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
+            'id' => $this->id,
             'title' => $this->title,
             'city' => $this->city,
             'country' => $this->country,
