@@ -3,10 +3,16 @@ import { conferecesApi } from "../api/conference/conferencesApi"
 
 
 
-export const useConferences = () => {
+export const useConferences = (limit = 0) => {
     return useQuery({
         queryKey: ['conferences'],
-        queryFn: () => conferecesApi.getConferences().then(res => res.data)
+        queryFn: () => conferecesApi.getConferences(limit).then(res => res.data),
+        staleTime: 30 * 60 * 1000, // 30 minuta - podaci će biti "sveži" 30 minuta
+        cacheTime: 60 * 60 * 1000, // 1 sat - podaci će biti u cacheu 1 sat
+        refetchOnWindowFocus: false, // Isključi refetch pri fokusu prozora
+        refetchOnMount: false, // Isključi refetch pri mountovanju
+        refetchOnReconnect: false, // Isključi refetch pri ponovnom povezivanju
+
     });
 }
 

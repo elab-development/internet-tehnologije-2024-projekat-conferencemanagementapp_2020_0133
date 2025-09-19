@@ -11,5 +11,22 @@
 }
 
 body{
-  @apply bg-amber-50
+  @apply bg-blue-50 ;
+}
+h1,h2,h3,h4,h5,h6 {
+  @apply font-inter;
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  scroll-snap-type: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+.scrollbar-hide>* {
+  scroll-snap-align: none;
 }

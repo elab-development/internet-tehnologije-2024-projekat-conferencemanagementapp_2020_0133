@@ -9,7 +9,7 @@ const axiosConferenceInstance = axios.create({
 });
 
 
-axiosInstance.interceptors.request.use(
+axiosConferenceInstance.interceptors.request.use(
     (config) => {
         
     const token = localStorage.getItem('token');
