@@ -1,17 +1,23 @@
+import JoinUsSection from "./components/JoinUsSection";
 import HeroSection from "./components/HeroSection";
 import UpcomingConferencesSection from "./components/UpcomingConferencesSection";
+import { useConferences } from "../../hooks/useConferences";
 
 function Home() {
-    return (
-        <div className="w-full h-full">
-            <HeroSection />
-            <div className="h-full p-16">
-                <UpcomingConferencesSection />
-            </div>
-            
-    
-        </div>
-    );
+  const { data, isLoading, isError } = useConferences(10);
+
+  console.log(data);
+  return (
+    <div className="w-full h-full">
+      <HeroSection />
+      <UpcomingConferencesSection
+        data={data}
+        isLoading={isLoading}
+        isError={isError}
+      />
+      <JoinUsSection />
+    </div>
+  );
 }
 
 export default Home;

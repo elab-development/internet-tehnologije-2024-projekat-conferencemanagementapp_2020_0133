@@ -30,3 +30,10 @@ h1,h2,h3,h4,h5,h6 {
 .scrollbar-hide>* {
   scroll-snap-align: none;
 }
+
+.disable-selection {
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
