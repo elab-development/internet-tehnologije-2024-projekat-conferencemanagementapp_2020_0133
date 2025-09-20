@@ -3,6 +3,7 @@ import HeroSection from "./components/HeroSection";
 import UpcomingConferencesSection from "./components/UpcomingConferencesSection";
 import { useConferences } from "../../hooks/useConferences";
 import StatsSection from "./components/StatsSection";
+import EventTypeSection from "./components/EventTypesSection";
 
 function Home() {
   const { data, isLoading, isError } = useConferences(10);
@@ -18,6 +19,7 @@ function Home() {
       />
       <JoinUsSection />
       <StatsSection />
+      <EventTypeSection />
     </div>
   );
 }
