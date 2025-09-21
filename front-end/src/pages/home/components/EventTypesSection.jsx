@@ -1,5 +1,5 @@
 import { GoPeople } from "react-icons/go";
-import { IoVideocamOffOutline } from "react-icons/io5";
+import {  IoVideocamOutline } from "react-icons/io5";
 
 function EventTypeSection() {
   return (
@@ -29,7 +29,7 @@ function EventTypeSection() {
 
         <div className="w-3/4 h-0.5 mx-auto bg-gray-300 xl:mx-0 xl:my-auto xl:h-36  xl:w-0.5"></div>
         <EventTypeCard
-          icon={<IoVideocamOffOutline className="text-2xl text-blue-600" />}
+          icon={<IoVideocamOutline className="text-2xl text-blue-600" />}
           title={"Virtual"}
           description={`Deliver dynamic online experiences with interactive tools, 
             live streaming, and virtual networking to keep your participants connected.`}
