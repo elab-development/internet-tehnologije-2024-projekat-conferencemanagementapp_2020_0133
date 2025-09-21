@@ -10,6 +10,14 @@
   --font-sans: 'Roboto', ui-sans-serif, system-ui, sans-serif;
 }
 
+
+@keyframes fadeInBounce {
+  0% { opacity: 0; transform: translateY(0); }
+  50% { opacity: 1; transform: translateY(-10px); }
+  70% { opacity: 1;transform: translateY(0); }
+  100% {opacity: 1;transform: translateY(-4px); }
+}
+
 /* body{
   @apply bg-blue-50 ;
 } */
