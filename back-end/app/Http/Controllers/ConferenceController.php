@@ -20,28 +20,29 @@ class ConferenceController extends Controller
      */
     public function index(Request $request)
     {
-
-        $conferences = null;
-    
-        if($request->has('limit')) {
-            $limit = $request->input('limit');
-            $conferences = Conference::with('topics')
-                ->where('end_date', '>', Carbon::today())
-                ->orderBy('start_date', 'asc')
-                ->limit($limit)
-                ->get();
-                return response()->json(ConferencePreviewResource::collection($conferences), 200);
-        } else {
-            $conferences = Conference::with('topics')
-            ->where('end_date', '>', Carbon::today())
-            ->orderBy('start_date', 'asc')
-            ->paginate(1);
+        $query = Conference::query()->with('topics')
+            ->where('end_date', '>', Carbon::today());
+        if ($request->has('country')) {
+            $query->whereIn('country', (array)$request->input('country'));
         }
+
+        if ($request->has('topic')) {
+            $query->whereHas('topics', function ($q) use ($request) {
+                $q->whereIn('topics.id', (array)$request->input('topic'));
+            });
+        }
+
+        if($request->has('search')){
+            $search = $request->input('search');
+            $query->where('title', 'like', "%$search%");
+        }
+
+        $query->orderBy('start_date', $request->input('sortBy', 'asc'));
+
+        $rows = $query->paginate($request->input('limit', 1));
         
 
-        return ConferencePreviewResource::collection($conferences)
-            ->response()
-            ->setStatusCode(200);
+        return ConferencePreviewResource::collection($rows);
     }
 
 
