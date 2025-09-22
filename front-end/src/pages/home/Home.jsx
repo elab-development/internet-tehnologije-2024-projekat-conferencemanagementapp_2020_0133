@@ -9,7 +9,7 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 
 function Home() {
-  const { data, isLoading, isError } = useConferences(10);
+  const { data, isLoading, isError, error } = useConferences({limit: 10});
   const {
     data: newsData,
   isLoading: isNewsLoading,
@@ -21,9 +21,7 @@ function Home() {
         "https://newsdata.io/api/1/latest?apikey=pub_9de0fb7b0b7545caad1063a4859e1ebc&language=en&category=science&image=1"
       ).then(res => res.data.results),
   });
-  console.log(newsData);
-  console.log(isNewsLoading);
-  console.log(newsData);
+  console.log(isLoading);
   return (
     <div className="w-full h-full">
       <HeroSection />
@@ -31,8 +29,7 @@ function Home() {
         data={data}
         isLoading={isLoading}
         isError={isError}
-      />
-      <JoinUsSection />
+      /> <JoinUsSection />
       <StatsSection />
       <EventTypeSection />
       <NewsSection data={newsData} isLoading={isNewsLoading} isError={isNewsError}/>

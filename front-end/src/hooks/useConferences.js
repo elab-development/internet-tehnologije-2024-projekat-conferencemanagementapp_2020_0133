@@ -1,12 +1,13 @@
 import { useQuery } from "@tanstack/react-query"
-import { conferecesApi } from "../api/conference/conferencesApi"
+import { conferencesApi } from "../api/conference/conferencesApi"
 
 
 
-export const useConferences = (limit = 0) => {
+export const useConferences = (params = { limit: 0, topic: [], country: [], search: "", sortBy: "" }) => {
+      const queryParams = new URLSearchParams(params).toString();
     return useQuery({
-        queryKey: ['conferences'],
-        queryFn: () => conferecesApi.getConferences(limit).then(res => res.data),
+        queryKey: ['conferences', queryParams],
+        queryFn: () => conferencesApi.getConferences(queryParams).then(res => res.data),
         staleTime: 30 * 60 * 1000, // 30 minuta - podaci će biti "sveži" 30 minuta
         cacheTime: 60 * 60 * 1000, // 1 sat - podaci će biti u cacheu 1 sat
         refetchOnWindowFocus: false, // Isključi refetch pri fokusu prozora
@@ -19,7 +20,7 @@ export const useConferences = (limit = 0) => {
 export const useConferenceById = (id) => {
     return useQuery({
         queryKey: ['conference', id],
-        queryFn: () => conferecesApi.getConferenceById(id).then(res => res.data),
+        queryFn: () => conferencesApi.getConferenceById(id).then(res => res.data),
         enabled: !!id, // query će se pokrenuti samo ako je id definiran
     });
 }
