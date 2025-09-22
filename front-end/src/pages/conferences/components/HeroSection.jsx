@@ -1,6 +1,6 @@
 import { IoSearchOutline } from "react-icons/io5";
 
-function HeroSection({ value = "", onValueChange = {}, onClick = {} }) {
+function HeroSection({ value = "", onValueChange = {}, onClick = ()=>{} }) {
   return (
     <section className="w-full h-[40vh]">
       <div className="relative w-full h-full">
@@ -23,7 +23,7 @@ function HeroSection({ value = "", onValueChange = {}, onClick = {} }) {
             <input
               value={value}
                           onChange={onValueChange}
-                          name="title"
+                          name="search"
               type="text"
               placeholder="Browse conferences..."
               className="ps-4 xl:ps-6 py-2 md:py-3 xl:py-4 focus:outline-none text-sm sm:text-base w-full h-full z-0"

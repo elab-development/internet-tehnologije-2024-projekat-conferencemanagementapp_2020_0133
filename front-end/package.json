@@ -13,12 +13,14 @@
     "@tailwindcss/vite": "^4.1.13",
     "@tanstack/react-query": "^5.89.0",
     "axios": "^1.12.2",
+    "countries-list": "^3.1.1",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
     "react-horizontal-scrolling-menu": "^8.2.0",
     "react-icons": "^5.5.0",
     "sonner": "^2.0.7",
-    "tailwindcss": "^4.1.13"
+    "tailwindcss": "^4.1.13",
+    "world-countries": "^5.1.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.35.0",

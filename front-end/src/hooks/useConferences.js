@@ -4,7 +4,18 @@ import { conferencesApi } from "../api/conference/conferencesApi"
 
 
 export const useConferences = (params = { limit: 0, topic: [], country: [], search: "", sortBy: "" }) => {
-      const queryParams = new URLSearchParams(params).toString();
+    const cleaned = Object.fromEntries(
+        Object.entries(params).filter(
+    ([_, value]) =>
+      value !== "" &&
+      value !== 0 &&
+      !(Array.isArray(value) && value.length === 0) &&
+      value !== null &&
+      value !== undefined
+  )
+);
+    const queryParams = new URLSearchParams(cleaned).toString();
+    console.log(queryParams);
     return useQuery({
         queryKey: ['conferences', queryParams],
         queryFn: () => conferencesApi.getConferences(queryParams).then(res => res.data),
