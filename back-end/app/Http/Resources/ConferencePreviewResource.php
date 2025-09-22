@@ -21,7 +21,8 @@ class ConferencePreviewResource extends JsonResource
             'city' => $this->city,
             'country' => $this->country,
             'topics' => $this->topics->pluck('name'),
-            'startDate' => Carbon::parse($this->start_date)->format('Y-m-d'),
+            'startDate' => Carbon::parse($this->start_date)->toIso8601String(),
+            'endDate' => Carbon::parse($this->end_date)->toIso8601String(),
         ];
     }
 }

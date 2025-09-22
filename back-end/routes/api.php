@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserConferencesController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\TicketController;
+use App\Http\Controllers\TopicController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -31,3 +32,4 @@ Route::post('/papers', [PaperController::class, 'store'])->middleware(['auth:san
 Route::get('conference/{conference}/papers', [PaperController::class, "getPapersOfConference"])
 ->middleware(['auth:sanctum', 'role:moderator']);
 Route::post('/tickets', [TicketController::class, "purchaseTicket"])->middleware('auth:sanctum');
+Route::get('/topics', TopicController::class);
