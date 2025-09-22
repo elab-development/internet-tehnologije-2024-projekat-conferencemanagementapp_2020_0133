@@ -73,7 +73,7 @@ function UpcomingConferencesSection({ data, isLoading, isError }) {
           space-x-5 pb-5  scrollbar-transparent"
         >
           {data &&
-            data.map((conference) => (
+            data.data.map((conference) => (
               <ConferenceCard key={conference.id} conference={conference} />
             ))}
         </div>

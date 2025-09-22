@@ -5,7 +5,8 @@ function EventTypeSection() {
   return (
     <section className="w-full px-12 mt-32">
       <div className="flex flex-col xl:px-48 xl:flex-row justify-between mx-auto items-end ">
-        <h2 className="text-center mx-auto mb-16 font-inter  xl:text-start text-2xl xl:text-4xl text-black w-2/5 font-semibold">
+        <h2 className="text-center w-full mx-auto mb-16 font-inter  xl:text-start text-2xl 
+        xl:text-4xl text-black xl:w-2/5 font-semibold">
           In-Person, Virtual, or Hybrid Events? We Got You.
         </h2>
         <img

@@ -91,7 +91,7 @@ function NewsSection({data = [], isLoading, isError}) {
       </button>
       <button
         onClick={() => leftArrowClick()}
-        className="absolute top-5/9 left-6 transform -translate-y-1/2 size-14 md:size-18 bg-gray-300 opacity-50 
+        className="absolute top-5/9 left-6 transform -translate-y-1/2 size-14 sm:size-16 md:size-18 bg-gray-300 opacity-50 
       flex items-center justify-center text-white text-xs rounded-full hover:opacity-100 transition-opacity"
       >
         <IoIosArrowBack className="text-2xl text-black" />
@@ -104,7 +104,7 @@ function NewsSection({data = [], isLoading, isError}) {
 function NewsCard({ article, ref}) {
   return (
     <div
-      className="flex-shrink-0 h-[55vh] w-[80vw] md:w-[60vw] xl:h-[35vh] xl:w-[27vw] lg:w-[40vw] flex flex-col 
+      className="flex-shrink-0 h-[25vh] w-[40vw] md:w-[35vw] xl:h-[30vh] xl:w-[27vw] 2xl:w-[22vw] lg:w-[30vw] flex flex-col 
       rounded-2xl overflow-hidden border-gray-300 border"
       ref={ref}
     >
@@ -113,9 +113,14 @@ function NewsCard({ article, ref}) {
         src={article.image_url}
         alt={article.title}
       />
-          <h4 onClick={() => window.open(article.link, "_blank")} className="mt-2 ps-4 text-sm md:text-baseline hover:text-blue-600">
-              {article.title.length > 180 ? article.title.slice(0, 177) + "..." : article.title}
-          </h4>
+      <h4
+        onClick={() => window.open(article.link, "_blank")}
+        className="mt-2 ps-4 text-sm md:text-baseline hover:text-blue-600"
+      >
+        {article.title.length > 180
+          ? article.title.slice(0, 177) + "..."
+          : article.title}
+      </h4>
     </div>
   );
 }
