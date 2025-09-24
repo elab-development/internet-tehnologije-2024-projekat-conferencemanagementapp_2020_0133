@@ -5,4 +5,5 @@ export const authApi = {
   login: (data) => axiosConferenceInstance.post("/auth/login", data),
   forgotPassword: (data) => axiosConferenceInstance.post("/auth/forgot-password", data),
   resetPassword: (data) => axiosConferenceInstance.post("/auth/reset-password", data),
+  getUser: () => axiosConferenceInstance.get("/auth/user"),
 };

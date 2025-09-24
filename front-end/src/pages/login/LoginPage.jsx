@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useLogin } from "../../hooks/useAuth";
 import { useNavigate, useLocation, Link } from "react-router";
 import { toast } from "sonner";
+import { useUser } from "../../context/UserContext"; // Dodaj import
 
 function LoginPage() {
   const [form, setForm] = useState({
@@ -12,6 +13,7 @@ function LoginPage() {
   const login = useLogin();
   const navigate = useNavigate();
   const location = useLocation();
+  const { setUser } = useUser(); 
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -25,13 +27,11 @@ function LoginPage() {
     e.preventDefault();
     login.mutate(form, {
       onSuccess: (res) => {
-        // Provera da li postoji token i user
         const token = res?.data?.token;
         const user = res?.data?.user;
         if (token && user) {
           localStorage.setItem("token", "Bearer " + token);
-          sessionStorage.setItem("user", JSON.stringify(user));
-          // Vrati korisnika na prethodnu stranicu ili na /
+          setUser(user);
           const from = location.state?.from?.pathname || "/";
           navigate(from, { replace: true });
         } else {

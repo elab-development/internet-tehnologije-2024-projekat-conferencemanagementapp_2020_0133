@@ -3,6 +3,8 @@ import { useRegister } from "../../hooks/useAuth";
 import { useNavigate } from "react-router";
 import { countries } from "countries-list";
 import { toast } from "sonner";
+import { useUser } from "../../context/UserContext"; 
+
 
 function RegisterPage() {
   const [form, setForm] = useState({
@@ -23,6 +25,7 @@ function RegisterPage() {
 
   const register = useRegister();
   const navigate = useNavigate();
+  const { setUser } = useUser();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -50,7 +53,6 @@ function RegisterPage() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Validacija: country mora biti iz liste
     const validCountry = countryOptions.find(
       (c) => c.toLowerCase() === form.country.toLowerCase()
     );
@@ -67,8 +69,8 @@ function RegisterPage() {
         const token = res?.data?.token;
         const user = res?.data?.user;
         if (token && user) {
-          localStorage.setItem("token","Bearer" + token);
-          sessionStorage.setItem("user", JSON.stringify(user));
+          localStorage.setItem("token", "Bearer" + token);
+          setUser(user); 
         }
         toast.success("Registration successful!");
         navigate("/");
