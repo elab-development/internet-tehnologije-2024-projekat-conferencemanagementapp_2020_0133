@@ -6,6 +6,7 @@ import { Toaster } from 'sonner'
 import ConferencesPage from './pages/conferences/ConferencesPage'
 import { Route, Routes } from 'react-router'
 import ConferenceDetailsPage from './pages/conference-details/ConferenceDetails'
+import LoginPage from './pages/login/LoginPage'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -18,6 +19,7 @@ function App() {
         <Route path='/' element={<Home/>}/>
         <Route path='/about-us' element={<AboutUs/>}/>
         <Route path='/contact' element={<ContactPage />} />
+        <Route path='/login' element={<LoginPage />} />
         <Route path='/conference/:id' element={<ConferenceDetailsPage/>}/>
       </Routes>
     </div>
