@@ -10,6 +10,8 @@ import LoginPage from './pages/login/LoginPage'
 import RegisterPage from './pages/register/RegisterPage'
 import ForgotPasswordPage from './pages/forgot-password/ForgotPasswordPage'
 import ResetPasswordPage from './pages/reset-password/ResetPassword'
+import Header from './components/Header'
+import Footer from './components/Footer'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -17,6 +19,7 @@ function App() {
   return (
     <div className="w-full h-full">
       <Toaster position="bottom-right" />
+      <Header/>
       <Routes>
         <Route path='/conferences' element={<ConferencesPage/>}/>
         <Route path='/' element={<Home/>}/>
@@ -28,6 +31,7 @@ function App() {
         <Route path='/reset-password' element={<ResetPasswordPage />} />
         <Route path='/conference/:id' element={<ConferenceDetailsPage/>}/>
       </Routes>
+      <Footer/>
     </div>
   );
 }
