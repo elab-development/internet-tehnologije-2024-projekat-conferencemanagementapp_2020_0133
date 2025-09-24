@@ -8,6 +8,7 @@ import { Route, Routes } from 'react-router'
 import ConferenceDetailsPage from './pages/conference-details/ConferenceDetails'
 import LoginPage from './pages/login/LoginPage'
 import RegisterPage from './pages/register/RegisterPage'
+import ForgotPasswordPage from './pages/forgot-password/ForgotPasswordPage'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -22,6 +23,7 @@ function App() {
         <Route path='/contact' element={<ContactPage />} />
         <Route path='/login' element={<LoginPage />} />
         <Route path='/register' element={<RegisterPage />} />
+        <Route path='/forgot-password' element={<ForgotPasswordPage />} />
         <Route path='/conference/:id' element={<ConferenceDetailsPage/>}/>
       </Routes>
     </div>
