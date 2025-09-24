@@ -1,4 +1,10 @@
+import { useCart } from "../../../context/CartContext";
+import { useParams } from "react-router";
+
 function AttendNowSection({ ticketTypes = [] }) {
+  const { id: conferenceId } = useParams();
+  const { addToCart } = useCart();
+
   if (!ticketTypes.length) return null;
 
   return (
@@ -19,7 +25,15 @@ function AttendNowSection({ ticketTypes = [] }) {
             <div className="text-2xl font-semibold text-blue-600 mb-4">
               {parseFloat(ticket.price) === 0 ? "Free" : `${ticket.price} €`}
             </div>
-            <button className="mt-4 w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded transition">
+            <button
+              className="mt-4 w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded transition"
+              onClick={() =>
+                addToCart({
+                  ...ticket,
+                  conferenceId: Number(conferenceId),
+                })
+              }
+            >
               Go {ticket.name}
             </button>
           </div>
