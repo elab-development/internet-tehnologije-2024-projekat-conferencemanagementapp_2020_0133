@@ -4,7 +4,7 @@ import axiosConferenceInstance from "../../../api/axiosConfig";
 import { useQuery } from "@tanstack/react-query";
 import { countries } from "countries-list";
 
-function FilterSection({ onValueChange,  state}) {
+function FilterSection({ onValueChange,  state, onFilter, clearFilter}) {
     const { data, isLoading, isError } = useQuery({
         queryKey: ['topics'],
         queryFn: () => axiosConferenceInstance.get("/topics").then(res => res.data)
@@ -33,98 +33,123 @@ function FilterSection({ onValueChange,  state}) {
           )
         );
       }, [search]);
+  const onFilterClicked = () => {
+    onFilter();
+    setSearch("")
+  }
+  const onClearFilterClicked = () => {
+    clearFilter();
+    setSearch("");
+  };
     return (
-      <div className="border m-3 w-full overflow-hidden lg:w-1/3 rounded-2xl">
-        <button
-          className="w-full flex justify-between items-center px-3 py-2 bg-white"
-          onClick={toggleFilterDropdown}
-        >
-          <span className="font-semibold">Filters</span>
-          <span>{isFiltersOpen ? "▲" : "▼"}</span>
-        </button>
-        {isFiltersOpen && (
-          <div className="w-full flex flex-col">
-            <div className="w-full overflow-hidden">
-              <button
-                className="w-full flex justify-between items-center px-3 py-2 bg-white border-y sticky"
-                onClick={toggleCountryDropdown}
-              >
-                <span className="font-semibold">Countries</span>
-                <span>{isCountryOpen ? "▲" : "▼"}</span>
-              </button>
+      <div className="h-fit  w-full xl:w-1/4 xl:px-10 xl:mt-14">
+        <div className="border h-fit  w-full overflow-hidden rounded-2xl ">
+          <div className="w-full relative pb-10">
+            <button
+              className="absolute w-full flex justify-between items-center px-3 py-2 z-0 bg-white"
+              onClick={toggleFilterDropdown}
+            >
+              <span className="font-semibold">Filters</span>
+              <span>{isFiltersOpen ? "▲" : "▼"}</span>
+            </button>
+            <button
+              className="absolute hover:underline hover:cursor-pointer top-1/2 -translate-y-5  end-0 -translate-x-12 z-10  h-full"
+              onClick={onClearFilterClicked}
+            >
+              Clear filters
+            </button>
+          </div>
 
-              {isCountryOpen && (
-                <div className="relative max-h-60 overflow-y-auto border-b">
-                  {/* Search box */}
-                  <div className="p-2 top-0 sticky bg-white">
-                    <input
-                      type="text"
-                      placeholder="Search Country"
-                      className="w-full border rounded px-2 py-1 text-sm"
-                      value={search}
-                      onChange={(e) => setSearch(e.target.value)}
-                    />
-                  </div>
-
-                  {/* List of countries */}
-                  <ul>
-                    {filteredCountries.map((country) => (
-                      <li
-                        key={country}
-                        className="px-3 py-1 flex items-center gap-2"
-                      >
-                        <input
-                          name="country"
-                          value={country}
-                          type="checkbox"
-                          checked={state.country.includes(country)}
-                          onChange={onValueChange}
-                        />
-                        <span>{country}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              )}
-            </div>
-
-            {!isLoading && !isError && (
+          {isFiltersOpen && (
+            <div className="w-full flex flex-col space-y-1 p-4">
               <div className="w-full overflow-hidden">
                 <button
-                  className={`w-full flex justify-between items-center px-3 py-2 bg-white ${
-                    isTopicOpen ? "border-b" : ""
-                  }`}
-                  onClick={toggleTopicDropdown}
+                  className="w-full flex justify-between items-center px-3 py-2 bg-white border  sticky"
+                  onClick={toggleCountryDropdown}
                 >
-                  <span className="font-semibold">Topics</span>
-                  <span>{isTopicOpen ? "▲" : "▼"}</span>
+                  <span className="font-semibold">Countries</span>
+                  <span>{isCountryOpen ? "▲" : "▼"}</span>
                 </button>
 
-                {isTopicOpen && (
-                  <div className="h-fit">
+                {isCountryOpen && (
+                  <div className="relative max-h-60 overflow-y-auto border-b">
+                    {/* Search box */}
+                    <div className="p-2 top-0 sticky bg-white">
+                      <input
+                        type="text"
+                        placeholder="Search Country"
+                        className="w-full border rounded px-2 py-1 text-sm"
+                        value={search}
+                        onChange={(e) => setSearch(e.target.value)}
+                      />
+                    </div>
+
+                    {/* List of countries */}
                     <ul>
-                      {data.map((topic) => (
+                      {filteredCountries.map((country) => (
                         <li
-                          key={topic.id}
+                          key={country}
                           className="px-3 py-1 flex items-center gap-2"
                         >
                           <input
-                            name="topic"
-                            value={topic.id}
+                            name="country"
+                            value={country}
                             type="checkbox"
-                            checked={state.topic.includes(topic.id)}
+                            checked={state.country.includes(country)}
                             onChange={onValueChange}
                           />
-                          <span>{topic.name}</span>
+                          <span>{country}</span>
                         </li>
                       ))}
                     </ul>
                   </div>
                 )}
               </div>
-            )}
-          </div>
-        )}
+
+              {!isLoading && !isError && (
+                <div className="w-full overflow-hidden">
+                  <button
+                    className={`w-full flex justify-between items-center px-3 py-2 bg-white border  ${
+                      isTopicOpen ? "border-b" : ""
+                    }`}
+                    onClick={toggleTopicDropdown}
+                  >
+                    <span className="font-semibold">Topics</span>
+                    <span>{isTopicOpen ? "▲" : "▼"}</span>
+                  </button>
+
+                  {isTopicOpen && (
+                    <div className="h-fit">
+                      <ul>
+                        {data.map((topic) => (
+                          <li
+                            key={topic.id}
+                            className="px-3 py-1 flex items-center gap-2"
+                          >
+                            <input
+                              name="topic"
+                              value={topic.id}
+                              type="checkbox"
+                              checked={state.topic.includes(topic.id)}
+                              onChange={onValueChange}
+                            />
+                            <span>{topic.name}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                </div>
+              )}
+              <button
+                className="w-full border p-2 rounded-b-2xl mt-6"
+                onClick={onFilterClicked}
+              >
+                Filter
+              </button>
+            </div>
+          )}
+        </div>
       </div>
     );
 }

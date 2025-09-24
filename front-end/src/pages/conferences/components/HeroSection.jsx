@@ -1,6 +1,9 @@
+import { useState } from "react";
 import { IoSearchOutline } from "react-icons/io5";
 
-function HeroSection({ value = "", onValueChange = {}, onClick = ()=>{} }) {
+function HeroSection({ value , onValueChange, onClick}) {
+  
+
   return (
     <section className="w-full h-[40vh]">
       <div className="relative w-full h-full">
@@ -21,7 +24,7 @@ function HeroSection({ value = "", onValueChange = {}, onClick = ()=>{} }) {
         >
           <div className="flex justify-end pe-2 items-center space-x-0 shadow-xl w-full overflow-hidden bg-white">
             <input
-              value={value}
+              value={value.search}
                           onChange={onValueChange}
                           name="search"
               type="text"

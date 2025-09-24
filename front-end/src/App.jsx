@@ -10,10 +10,10 @@ function App() {
 
   return (
     <div className="w-full h-full">
-      <Toaster position='bottom-right' />
-      <ConferencesPage/>
+      <Toaster position="bottom-right" />
+      <ConferencesPage />
     </div>
-  )
+  );
 }
 
 export default App

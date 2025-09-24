@@ -12,14 +12,16 @@ function Home() {
   const { data, isLoading, isError, error } = useConferences({limit: 10});
   const {
     data: newsData,
-  isLoading: isNewsLoading,
-  isError: isNewsError,
+    isLoading: isNewsLoading,
+    isError: isNewsError,
   } = useQuery({
-    queryKey: ['news'],
+    queryKey: ["news"],
     queryFn: () =>
-      axios.get(
-        "https://newsdata.io/api/1/latest?apikey=pub_9de0fb7b0b7545caad1063a4859e1ebc&language=en&category=science&image=1"
-      ).then(res => res.data.results),
+      axios
+        .get(
+          "https://newsdata.io/api/1/latest?apikey=pub_9de0fb7b0b7545caad1063a4859e1ebc&language=en&qInTitle=conference&image=1&category=science,technology,education"
+        )
+        .then((res) => res.data.results),
   });
   console.log(isLoading);
   return (

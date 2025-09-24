@@ -3,7 +3,7 @@ import { conferencesApi } from "../api/conference/conferencesApi"
 
 
 
-export const useConferences = (params = { limit: 0, topic: [], country: [], search: "", sortBy: "" }) => {
+export const useConferences = (params = { limit: 0, topic: [], country: [], search: "", sortBy: "", page: 0 }) => {
     const cleaned = Object.fromEntries(
         Object.entries(params).filter(
     ([_, value]) =>
@@ -13,9 +13,11 @@ export const useConferences = (params = { limit: 0, topic: [], country: [], sear
       value !== null &&
       value !== undefined
   )
-);
+    );
+    
     const queryParams = new URLSearchParams(cleaned).toString();
-    console.log(queryParams);
+    console.log(params);
+    console.log("Query params:", queryParams);
     return useQuery({
         queryKey: ['conferences', queryParams],
         queryFn: () => conferencesApi.getConferences(queryParams).then(res => res.data),
