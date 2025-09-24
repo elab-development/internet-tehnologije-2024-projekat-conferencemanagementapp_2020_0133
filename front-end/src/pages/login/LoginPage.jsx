@@ -1,4 +1,7 @@
 import { useState } from "react";
+import { useLogin } from "../../hooks/useAuth";
+import { useNavigate, useLocation, Link } from "react-router";
+import { toast } from "sonner";
 
 function LoginPage() {
   const [form, setForm] = useState({
@@ -6,6 +9,9 @@ function LoginPage() {
     password: "",
     remember: false,
   });
+  const login = useLogin();
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -17,13 +23,31 @@ function LoginPage() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // handle login logic
+    login.mutate(form, {
+      onSuccess: (res) => {
+        // Provera da li postoji token i user
+        const token = res?.data?.token;
+        const user = res?.data?.user;
+        if (token && user) {
+          localStorage.setItem("token", "Bearer " + token);
+          sessionStorage.setItem("user", JSON.stringify(user));
+          // Vrati korisnika na prethodnu stranicu ili na /
+          const from = location.state?.from?.pathname || "/";
+          navigate(from, { replace: true });
+        } else {
+          toast.error("Authentication failed.");
+        }
+      },
+      onError: () => {
+        toast.error("Authentication failed.");
+      },
+    });
   };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100 p-4">
       <div className="bg-white rounded-2xl shadow-lg flex flex-col md:flex-row w-full max-w-4xl overflow-hidden">
-        {/* Left Side */}
+        {/* Leva strana */}
         <div className="md:w-1/2 flex flex-col justify-center items-center bg-blue-50 p-8">
           <h1 className="text-3xl font-bold mb-4 text-blue-900 text-center">
             Welcome Back 👋
@@ -38,7 +62,7 @@ function LoginPage() {
             className="w-64 max-w-full"
           />
         </div>
-        {/* Right Side */}
+        {/* Desna strana */}
         <div className="md:w-1/2 flex items-center justify-center p-8">
           <form
             onSubmit={handleSubmit}
@@ -88,16 +112,29 @@ function LoginPage() {
                 />
                 Remember me
               </label>
-              <a href="#" className="text-blue-600 hover:underline text-sm">
+              <Link
+                to="/forgot-password"
+                className="text-blue-600 hover:underline text-sm"
+              >
                 Forgot password?
-              </a>
+              </Link>
             </div>
             <button
               type="submit"
               className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 rounded transition"
+              disabled={login.isLoading}
             >
-              Sign In
+              {login.isLoading ? "Signing In..." : "Sign In"}
             </button>
+            <div className="text-center text-gray-600 text-sm mt-2">
+              Don't have an account?{" "}
+              <a
+                href="/register"
+                className="text-blue-600 hover:underline font-medium"
+              >
+                Sign up
+              </a>
+            </div>
           </form>
         </div>
       </div>
