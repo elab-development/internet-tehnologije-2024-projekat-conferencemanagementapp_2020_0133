@@ -4,6 +4,8 @@ import AboutUs from './pages/about-us/AboutUs'
 import ContactPage from './pages/contact/ContactPage'
 import { Toaster } from 'sonner'
 import ConferencesPage from './pages/conferences/ConferencesPage'
+import { Route, Routes } from 'react-router'
+import ConferenceDetailsPage from './pages/conference-details/ConferenceDetails'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -11,7 +13,13 @@ function App() {
   return (
     <div className="w-full h-full">
       <Toaster position="bottom-right" />
-      <ConferencesPage />
+      <Routes>
+        <Route path='/conferences' element={<ConferencesPage/>}/>
+        <Route path='/' element={<Home/>}/>
+        <Route path='/about-us' element={<AboutUs/>}/>
+        <Route path='/contact' element={<ContactPage />} />
+        <Route path='/conference/:id' element={<ConferenceDetailsPage/>}/>
+      </Routes>
     </div>
   );
 }
