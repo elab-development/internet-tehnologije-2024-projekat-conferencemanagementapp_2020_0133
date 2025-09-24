@@ -1,6 +1,6 @@
 function HeroSection() {
     return ( 
-        <section className="relative w-full h-[70vh] min-h-[500px] max-h-[800px] overflow-hidden">
+        <section className="mt-15 relative w-full h-[70vh] min-h-[500px] max-h-[800px] overflow-hidden">
             {/* Slika koja će se lepo skalirati */}
             <img 
                 src="/assets/images/hero.webp" 
