@@ -3,8 +3,8 @@ import { useRegister } from "../../hooks/useAuth";
 import { useNavigate } from "react-router";
 import { countries } from "countries-list";
 import { toast } from "sonner";
-import { useUser } from "../../context/UserContext"; 
-
+import { useUser } from "../../context/UserContext";
+import FormInput from "../../components/FormInput";
 
 function RegisterPage() {
   const [form, setForm] = useState({
@@ -70,7 +70,7 @@ function RegisterPage() {
         const user = res?.data?.user;
         if (token && user) {
           localStorage.setItem("token", "Bearer" + token);
-          setUser(user); 
+          setUser(user);
         }
         toast.success("Registration successful!");
         navigate("/");
@@ -114,54 +114,36 @@ function RegisterPage() {
             </h2>
             {/* First Name & Last Name */}
             <div className="flex gap-3">
-              <div className="flex flex-col gap-2 w-1/2">
-                <label
-                  htmlFor="firstName"
-                  className="text-gray-700 font-medium"
-                >
-                  First Name
-                </label>
-                <input
-                  id="firstName"
-                  name="firstName"
-                  type="text"
-                  required
-                  value={form.firstName}
-                  onChange={handleChange}
-                  className="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
-                />
-              </div>
-              <div className="flex flex-col gap-2 w-1/2">
-                <label htmlFor="lastName" className="text-gray-700 font-medium">
-                  Last Name
-                </label>
-                <input
-                  id="lastName"
-                  name="lastName"
-                  type="text"
-                  required
-                  value={form.lastName}
-                  onChange={handleChange}
-                  className="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
-                />
-              </div>
+              <FormInput
+                id="firstName"
+                name="firstName"
+                label="First Name"
+                type="text"
+                required
+                value={form.firstName}
+                onChange={handleChange}
+              />
+              <FormInput
+                id="lastName"
+                name="lastName"
+                label="Last Name"
+                type="text"
+                required
+                value={form.lastName}
+                onChange={handleChange}
+              />
             </div>
             {/* City & Country */}
             <div className="flex gap-3">
-              <div className="flex flex-col gap-2 w-1/2">
-                <label htmlFor="city" className="text-gray-700 font-medium">
-                  City
-                </label>
-                <input
-                  id="city"
-                  name="city"
-                  type="text"
-                  required
-                  value={form.city}
-                  onChange={handleChange}
-                  className="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
-                />
-              </div>
+              <FormInput
+                id="city"
+                name="city"
+                label="City"
+                type="text"
+                required
+                value={form.city}
+                onChange={handleChange}
+              />
               <div className="flex flex-col gap-2 w-1/2 relative">
                 <label htmlFor="country" className="text-gray-700 font-medium">
                   Country
@@ -201,68 +183,45 @@ function RegisterPage() {
               </div>
             </div>
             {/* Phone */}
-            <div className="flex flex-col gap-2">
-              <label htmlFor="phone" className="text-gray-700 font-medium">
-                Phone Number
-              </label>
-              <input
-                id="phone"
-                name="phone"
-                type="tel"
-                required
-                value={form.phone}
-                onChange={handleChange}
-                className="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
-              />
-            </div>
+            <FormInput
+              id="phone"
+              name="phone"
+              label="Phone Number"
+              type="tel"
+              required
+              value={form.phone}
+              onChange={handleChange}
+            />
             {/* Email */}
-            <div className="flex flex-col gap-2">
-              <label htmlFor="email" className="text-gray-700 font-medium">
-                Email
-              </label>
-              <input
-                id="email"
-                name="email"
-                type="email"
-                required
-                value={form.email}
-                onChange={handleChange}
-                className="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
-              />
-            </div>
+            <FormInput
+              id="email"
+              name="email"
+              label="Email"
+              type="email"
+              required
+              value={form.email}
+              onChange={handleChange}
+            />
             {/* Password */}
-            <div className="flex flex-col gap-2">
-              <label htmlFor="password" className="text-gray-700 font-medium">
-                Password
-              </label>
-              <input
-                id="password"
-                name="password"
-                type="password"
-                required
-                value={form.password}
-                onChange={handleChange}
-                className="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
-              />
-            </div>
+            <FormInput
+              id="password"
+              name="password"
+              label="Password"
+              type="password"
+              required
+              value={form.password}
+              onChange={handleChange}
+            />
             {/* Password Confirmation */}
-            <div className="flex flex-col gap-2">
-              <label
-                htmlFor="password_confirmation"
-                className="text-gray-700 font-medium"
-              >
-                Confirm Password
-              </label>
-              <input
-                id="password_confirmation"
-                name="password_confirmation"
-                type="password"
-                required
-                value={form.password_confirmation}
-                onChange={handleChange}
-                className="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
-              />
-            </div>
+            <FormInput
+              id="password_confirmation"
+              name="password_confirmation"
+              label="Confirm Password"
+              type="password"
+              required
+              value={form.password_confirmation}
+              onChange={handleChange}
+            />
             <button
               type="submit"
               className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 rounded transition"

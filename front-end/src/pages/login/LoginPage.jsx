@@ -3,6 +3,7 @@ import { useLogin } from "../../hooks/useAuth";
 import { useNavigate, useLocation, Link } from "react-router";
 import { toast } from "sonner";
 import { useUser } from "../../context/UserContext"; // Dodaj import
+import FormInput from "../../components/FormInput";
 
 function LoginPage() {
   const [form, setForm] = useState({
@@ -13,7 +14,7 @@ function LoginPage() {
   const login = useLogin();
   const navigate = useNavigate();
   const location = useLocation();
-  const { setUser } = useUser(); 
+  const { setUser } = useUser();
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -71,36 +72,26 @@ function LoginPage() {
             <h2 className="text-2xl font-semibold text-gray-900 mb-2 text-center">
               Sign in to your account
             </h2>
-            <div className="flex flex-col gap-2">
-              <label htmlFor="email" className="text-gray-700 font-medium">
-                Email address
-              </label>
-              <input
-                id="email"
-                name="email"
-                type="email"
-                autoComplete="email"
-                required
-                value={form.email}
-                onChange={handleChange}
-                className="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
-              />
-            </div>
-            <div className="flex flex-col gap-2">
-              <label htmlFor="password" className="text-gray-700 font-medium">
-                Password
-              </label>
-              <input
-                id="password"
-                name="password"
-                type="password"
-                autoComplete="current-password"
-                required
-                value={form.password}
-                onChange={handleChange}
-                className="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
-              />
-            </div>
+            <FormInput
+              id="email"
+              name="email"
+              label="Email address"
+              type="email"
+              required
+              value={form.email}
+              onChange={handleChange}
+              autoComplete="email"
+            />
+            <FormInput
+              id="password"
+              name="password"
+              label="Password"
+              type="password"
+              required
+              value={form.password}
+              onChange={handleChange}
+              autoComplete="current-password"
+            />
             <div className="flex items-center justify-between">
               <label className="flex items-center gap-2 text-gray-700">
                 <input

@@ -13,7 +13,7 @@ function HeroSection({ title, start_date, end_date, city, country }) {
 
   return (
     <section
-      className="relative w-full h-[40vh] flex items-center justify-center"
+      className="relative w-full h-[40vh] flex items-center justify-center mt-15"
       style={{
         backgroundImage:
           "url('/assets/images/diversity-teenager-team-seminar-training-education-concept.jpg')",

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useForgotPassword } from "../../hooks/useAuth";
 import { toast } from "sonner";
 import { useNavigate } from "react-router";
+import FormInput from "../../components/FormInput";
 
 function ForgotPasswordPage() {
   const [email, setEmail] = useState("");
@@ -43,20 +44,16 @@ function ForgotPasswordPage() {
           Enter your email and we’ll send you a reset link.
         </p>
         <form onSubmit={handleSubmit} className="w-full flex flex-col gap-4">
-          <div className="flex flex-col gap-2">
-            <label htmlFor="email" className="text-gray-700 font-medium">
-              Email
-            </label>
-            <input
-              id="email"
-              name="email"
-              type="email"
-              required
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
-            />
-          </div>
+          <FormInput
+            id="email"
+            name="email"
+            label="Email"
+            type="email"
+            required
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            autoComplete="email"
+          />
           <button
             type="submit"
             className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 rounded transition"

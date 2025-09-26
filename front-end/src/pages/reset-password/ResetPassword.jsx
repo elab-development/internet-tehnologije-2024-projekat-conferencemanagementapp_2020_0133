@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useSearchParams, useNavigate } from "react-router";
 import { useResetPassword } from "../../hooks/useAuth";
 import { toast } from "sonner";
+import FormInput from "../../components/FormInput";
 
 function ResetPasswordPage() {
   const [searchParams] = useSearchParams();
@@ -74,37 +75,26 @@ function ResetPasswordPage() {
           Enter your new password below to regain access to your account.
         </p>
         <form onSubmit={handleSubmit} className="w-full flex flex-col gap-4">
-          <div className="flex flex-col gap-2">
-            <label htmlFor="password" className="text-gray-700 font-medium">
-              New Password
-            </label>
-            <input
-              id="password"
-              name="password"
-              type="password"
-              required
-              value={form.password}
-              onChange={handleChange}
-              className="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
-            />
-          </div>
-          <div className="flex flex-col gap-2">
-            <label
-              htmlFor="passwordConfirmation"
-              className="text-gray-700 font-medium"
-            >
-              Confirm Password
-            </label>
-            <input
-              id="passwordConfirmation"
-              name="passwordConfirmation"
-              type="password"
-              required
-              value={form.passwordConfirmation}
-              onChange={handleChange}
-              className="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
-            />
-          </div>
+          <FormInput
+            id="password"
+            name="password"
+            label="New Password"
+            type="password"
+            required
+            value={form.password}
+            onChange={handleChange}
+            autoComplete="new-password"
+          />
+          <FormInput
+            id="passwordConfirmation"
+            name="passwordConfirmation"
+            label="Confirm Password"
+            type="password"
+            required
+            value={form.passwordConfirmation}
+            onChange={handleChange}
+            autoComplete="new-password"
+          />
           <button
             type="submit"
             className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 rounded transition"

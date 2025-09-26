@@ -5,7 +5,7 @@ function HeroSection({ value , onValueChange, onClick}) {
   
 
   return (
-    <section className="w-full h-[40vh]">
+    <section className="w-full h-[40vh] mt-15">
       <div className="relative w-full h-full">
         <img
           src="/assets/images/conference-audience.jpg"

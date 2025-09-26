@@ -1,12 +1,19 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useState, useEffect } from "react";
 import { toast } from "sonner";
 
 const CartContext = createContext();
 
 export function CartProvider({ children }) {
-  const [cart, setCart] = useState([]);
+  const [cart, setCart] = useState(() => {
+    const stored = sessionStorage.getItem("cart");
+    return stored ? JSON.parse(stored) : [];
+  });
 
-  
+  // Sync cart to sessionStorage on every change
+  useEffect(() => {
+    sessionStorage.setItem("cart", JSON.stringify(cart));
+  }, [cart]);
+
   const addToCart = (item) => {
     if (cart.some((el) => el.id === item.id)) {
       toast.info("This ticket is already in your cart.");

@@ -1,6 +1,7 @@
 import dayjs from "dayjs";
 import { FaRegCalendarAlt } from "react-icons/fa";
 import { FaLocationDot } from "react-icons/fa6";
+import { Link, useNavigate } from "react-router";
 
 function ConferenceListSection({
   data,
@@ -10,20 +11,27 @@ function ConferenceListSection({
   state,
   onChange,
 }) {
+  const navigate = useNavigate();
 
-
-    const getPaginationList = () => {
-      const meta = data.meta;
-          meta.links[0].label = "Prev";
-        meta.links[meta.links.length - 1].label = "Next";
-        return meta.links;
+  const getPaginationList = () => {
+    const meta = data.meta;
+    meta.links[0].label = "Prev";
+    meta.links[meta.links.length - 1].label = "Next";
+    return meta.links;
+  };
+  const isDisabled = (page) => {
+    if (page.active || page.url === null) {
+      return true;
     }
-    const isDisabled = (page) => {
-        if (page.active || page.url === null) {
-            return true;
-        }
+  };
 
-    }
+  // Kada klikneš na konferenciju:
+  const handleConferenceClick = (id) => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    // Navigacija sa query parametrom
+    navigate(`/conference/${id}${window.location.search}`);
+  };
+
   return (
     <section className="w-full xl:w-3/4 xl:pe-16">
       {!isError && !isLoading && (
@@ -43,9 +51,11 @@ function ConferenceListSection({
             </div>
             <div className="w-full">
               {data.data.map((conference) => (
-                <div key={conference.id}>
-                  <ConferencePreviewCard conference={conference} />
-                </div>
+                <ConferencePreviewCard
+                  key={conference.id}
+                  conference={conference}
+                  onClick={() => handleConferenceClick(conference.id)}
+                />
               ))}
             </div>
           </div>
@@ -71,13 +81,19 @@ function ConferenceListSection({
     </section>
   );
 }
-function ConferencePreviewCard({ conference }) {
+function ConferencePreviewCard({ conference, onClick }) {
   return (
-    <div className="w-full p-6 rounded-4xl border mt-1">
+    <div
+      className="w-full p-6 rounded-4xl border mt-1 cursor-pointer"
+      onClick={onClick}
+    >
       <h3 className="text-lg sm:text-xl">{conference.title}</h3>
       <div className="my-1 space-x-1 space-y-1 flex  w-full  flex-wrap">
         {conference.topics.map((topic) => (
-          <div key={topic.id} className="sm:py-1 px-2 border rounded-full text-sm">
+          <div
+            key={topic.id}
+            className="sm:py-1 px-2 border rounded-full text-sm"
+          >
             {topic.name}
           </div>
         ))}

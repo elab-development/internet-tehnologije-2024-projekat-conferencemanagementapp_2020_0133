@@ -8,7 +8,7 @@ function AttendNowSection({ ticketTypes = [] }) {
   if (!ticketTypes.length) return null;
 
   return (
-    <section id="attend-now-section" className="w-full max-w-5xl mx-auto mt-10">
+    <section id="attend-now-section" className="w-full max-w-5xl mx-auto my-10">
       <h2 className="text-2xl font-semibold mb-6 text-gray-900 text-center">
         Attend Now
       </h2>
