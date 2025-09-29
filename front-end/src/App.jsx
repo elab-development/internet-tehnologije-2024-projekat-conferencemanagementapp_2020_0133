@@ -13,6 +13,7 @@ import ResetPasswordPage from './pages/reset-password/ResetPassword'
 import Header from './components/Header'
 import Footer from './components/Footer'
 import CartPage from './pages/cart/CartPage'
+import CustomerInfoPage from './pages/customer-info/CustomerInfoPage'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -21,22 +22,23 @@ function App() {
     <div className="w-full h-full">
       <Toaster position="bottom-right" />
       <Header />
-      <div className='mt-15'>
+      <div className="mt-15">
         <Routes>
-        <Route path='/conferences' element={<ConferencesPage/>}/>
-        <Route path='/' element={<Home/>}/>
-        <Route path='/about-us' element={<AboutUs/>}/>
-        <Route path='/contact' element={<ContactPage />} />
-        <Route path='/login' element={<LoginPage />} />
-        <Route path='/register' element={<RegisterPage />} />
-        <Route path='/forgot-password' element={<ForgotPasswordPage />} />
-        <Route path='/reset-password' element={<ResetPasswordPage />} />
-        <Route path='/conference/:id' element={<ConferenceDetailsPage />} />
-        <Route path='/order/cart' element={<CartPage/>}/>
-      </Routes>
+          <Route path="/conferences" element={<ConferencesPage />} />
+          <Route path="/" element={<Home />} />
+          <Route path="/about-us" element={<AboutUs />} />
+          <Route path="/contact" element={<ContactPage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
+          <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+          <Route path="/reset-password" element={<ResetPasswordPage />} />
+          <Route path="/conference/:id" element={<ConferenceDetailsPage />} />
+          <Route path="/order/cart" element={<CartPage />} />
+          <Route path="/order/customer-info" element={<CustomerInfoPage />} />
+        </Routes>
       </div>
-      
-      <Footer/>
+
+      <Footer />
     </div>
   );
 }
