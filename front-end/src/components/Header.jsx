@@ -69,7 +69,7 @@ function Header() {
       {/* Right: Cart & Auth (desktop) */}
       <div className="hidden md:flex items-center gap-4 ml-auto">
         <button
-          onClick={() => handleNav("/cart")}
+          onClick={() => handleNav("/order/cart")}
           className="relative bg-none border-none p-0"
           style={{ cursor: "pointer" }}
         >

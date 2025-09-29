@@ -1,8 +1,7 @@
 import { useCart } from "../../../context/CartContext";
 import { useParams } from "react-router";
 
-function AttendNowSection({ ticketTypes = [] }) {
-  const { id: conferenceId } = useParams();
+function AttendNowSection({ ticketTypes = [], conference = {} }) {
   const { addToCart } = useCart();
 
   if (!ticketTypes.length) return null;
@@ -30,7 +29,10 @@ function AttendNowSection({ ticketTypes = [] }) {
               onClick={() =>
                 addToCart({
                   ...ticket,
-                  conferenceId: Number(conferenceId),
+                  conferenceId: conference.id,
+                  conferenceTitle: conference.title,
+                  conferenceStartDate: conference.start_date,
+                  conferenceEndDate: conference.end_date
                 })
               }
             >

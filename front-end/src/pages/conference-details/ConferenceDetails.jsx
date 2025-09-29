@@ -54,7 +54,7 @@ function ConferenceDetailsPage() {
         startDate={conference.start_date}
         endDate={conference.end_date}
       />
-      <AttendNowSection ticketTypes={conference.ticket_types} />
+      <AttendNowSection ticketTypes={conference.ticket_types} conference={conference} />
     </>
   );
 }
