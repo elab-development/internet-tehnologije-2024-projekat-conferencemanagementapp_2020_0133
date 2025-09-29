@@ -64,7 +64,7 @@ function CustomerInfoPage() {
             <div className="flex items-center gap-2 mt-8">
               <button
                 className="flex items-center gap-2 text-blue-600 hover:underline font-semibold"
-                onClick={() => navigate("/cart")}
+                onClick={() => navigate("/order/cart")}
               >
                 <svg
                   width="20"

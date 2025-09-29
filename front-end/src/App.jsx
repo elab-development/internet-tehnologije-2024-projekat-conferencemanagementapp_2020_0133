@@ -14,6 +14,7 @@ import Header from './components/Header'
 import Footer from './components/Footer'
 import CartPage from './pages/cart/CartPage'
 import CustomerInfoPage from './pages/customer-info/CustomerInfoPage'
+import DeliveryMethodPage from './pages/delivery-method/DeliveryMethodPage'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -35,6 +36,7 @@ function App() {
           <Route path="/conference/:id" element={<ConferenceDetailsPage />} />
           <Route path="/order/cart" element={<CartPage />} />
           <Route path="/order/customer-info" element={<CustomerInfoPage />} />
+          <Route path="/order/delivery-method" element={<DeliveryMethodPage/>} />
         </Routes>
       </div>
 
