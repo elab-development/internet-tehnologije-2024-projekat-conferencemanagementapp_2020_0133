@@ -18,7 +18,7 @@ class ForgotPasswordController extends Controller
         $status = Password::sendResetLink(
             ['email' => $request['email']],
             function ($user, $token) {
-                $url =  "http://127.0.0.1:8000". "/reset-password?token=$token&email={$user->email}"; //config('app.frontend_url')
+                $url =  "http://localhost:5173". "/reset-password?token=$token&email={$user->email}"; //config('app.frontend_url')
                 Mail::to($user->email)->send(new ResetPasswordMail($url));
             }
         );

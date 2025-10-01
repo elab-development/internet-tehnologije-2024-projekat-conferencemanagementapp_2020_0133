@@ -30,9 +30,14 @@ class ConferenceDetailResource extends JsonResource
             'organization' => $this->organization,
             'contact_email' => $this->contact_email,
             'contact_phone' => $this->contact_phone,
-            'created_by' => $this->created_by,
+            'created_by' => $this->creator,
 
-            'topics' => $this->topics->pluck('name'),
+            'topics' => $this['topics']->map(function ($item) {
+                return (object)[
+                    'id' => $item['id'],
+                    'name' => $item['name']
+                ];
+            }),
             'agenda_items' => $this->agendaItems->map(function ($item) {
                 return [
                     'id' => $item->id,

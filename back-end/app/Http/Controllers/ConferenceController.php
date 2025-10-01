@@ -23,12 +23,13 @@ class ConferenceController extends Controller
         $query = Conference::query()->with('topics')
             ->where('end_date', '>', Carbon::today());
         if ($request->has('country')) {
-            $query->whereIn('country', (array)$request->input('country'));
+            $query->whereIn('country', explode(',',$request->input('country')));
         }
 
         if ($request->has('topic')) {
             $query->whereHas('topics', function ($q) use ($request) {
-                $q->whereIn('topics.id', (array)$request->input('topic'));
+                $q->whereIn('topics.id',
+                        explode(',',$request->input('topic')));
             });
         }
 
@@ -39,7 +40,7 @@ class ConferenceController extends Controller
 
         $query->orderBy('start_date', $request->input('sortBy', 'asc'));
 
-        $rows = $query->paginate($request->input('limit', 1));
+        $rows = $query->paginate($request->input('limit', 20));
         
 
         return ConferencePreviewResource::collection($rows);
@@ -61,7 +62,7 @@ class ConferenceController extends Controller
      */
     public function show(Conference $conference)
     {
-        $conference->load(['topics', 'agendaItems', 'ticketTypes']);
+        $conference->load(['topics', 'agendaItems', 'ticketTypes', 'creator']);
         return response() ->json(new ConferenceDetailResource($conference));
     }
 

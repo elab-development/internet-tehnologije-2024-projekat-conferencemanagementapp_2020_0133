@@ -22,7 +22,8 @@ class PurchaseTicketRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'ticketTypeId' => 'required|exists:ticket_types,id',
+            'tickets' => 'required|array|min:1',
+            'tickets.*.ticketTypeId' => 'required|exists:ticket_types,id',
             'paymentMethod' => 'required|in:Credit card',
         ];
     }

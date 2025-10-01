@@ -20,11 +20,13 @@
 
         <p>You have successfully purchased a ticket for the conference:</p>
 
-        <div class="details">
-            <p><strong>Conference:</strong> {{ $ticketType->conference->title }}</p>
-            <p><strong>Ticket Type:</strong> {{ $ticketType->name }}</p>
-            <p><strong>Payment Method:</strong> {{ $ticket->payment_method }}</p>
-        </div>
+        @foreach($tickets as $i => $ticket)
+            <div class="details">
+                <p><strong>Conference:</strong> {{ $ticketTypes[$i]->conference->title }}</p>
+                <p><strong>Ticket Type:</strong> {{ $ticketTypes[$i]->name }}</p>
+                <p><strong>Payment Method:</strong> {{ $ticket->payment_method }}</p>
+            </div>
+        @endforeach
 
         <p>Your ticket is at the end of this mail.</p>
 

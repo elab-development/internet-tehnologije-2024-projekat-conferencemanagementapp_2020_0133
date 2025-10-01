@@ -22,6 +22,7 @@ class UserResource extends JsonResource
             'country' => $this->country,
             'profileImage' => $this->profileImage,
             'email' => $this->email,
+            'roles' => $this->getRoleNames()
         ];
     }
 }

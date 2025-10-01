@@ -12,7 +12,7 @@ class AuthController extends Controller
 {
     public function register(RegisterRequest $request)
     {
-        $userData = $request->validatedSnakeCase();
+        $userData = $request->validated();
         $userData['password'] = Hash::make($userData['password']);
 
         $user = User::create($userData);
@@ -40,12 +40,16 @@ class AuthController extends Controller
             ], 401);
         }
 
-        $expiresAt = now()->addMinutes(config('sanctum.expiration'));
+        $remember = $request->boolean('remember');
+        $expiresAt = $remember
+            ? now()->addDays(30)
+            : now()->addMinutes(config('sanctum.expiration'));
 
         $token = $user->createToken(
             'auth_token',
             ['*'],
-            $expiresAt)->plainTextToken;
+            $expiresAt
+        )->plainTextToken;
 
         return response()->json([
             'user' => new UserResource($user),

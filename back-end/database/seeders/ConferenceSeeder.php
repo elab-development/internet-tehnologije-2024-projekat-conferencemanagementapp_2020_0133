@@ -18,7 +18,7 @@ class ConferenceSeeder extends Seeder
 
         foreach ($organizers as $organizer) {
 
-            $conferences = Conference::factory()->count(2)->create([
+            $conferences = Conference::factory()->count(290)->create([
                 'created_by' => $organizer->id,
             ]);
 

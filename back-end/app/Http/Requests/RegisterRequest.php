@@ -22,30 +22,23 @@ class RegisterRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'firstName' => 'required|string|max:255',
-            'lastName' => 'required|string|max:255',
+            'first_name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:8',
+            'password' => 'required|string|min:8|confirmed',
             'phone' => 'required|string|max:40',
             'city' => 'required|string|max:100',
             'country' => 'required|string|max:100',
-            'profileImage' => 'nullable|string|max:255',
+            'profile_image' => 'nullable|string|max:255',
         ];
     }
 
-    public function validatedSnakeCase(): array
+    protected function prepareForValidation()
     {
-        $data = $this->validated();
-        return [
-            'first_name' => $data['firstName'],
-            'last_name'  => $data['lastName'],
-            'email'      => $data['email'],
-            'password'   => $data['password'],
-            'phone'      => $data['phone'],
-            'city'       => $data['city'],
-            'country'    => $data['country'],
-            'profile_image' => $data['profileImage'] ?? null,
-        ];
+        $this->merge([
+            'first_name' => $this->input('firstName'),
+            'last_name' => $this->input('lastName'),
+            'profile_image' => $this->input('profileImage'),
+        ]);
     }
-
 }

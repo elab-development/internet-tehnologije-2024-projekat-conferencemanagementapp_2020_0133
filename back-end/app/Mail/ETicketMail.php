@@ -17,19 +17,19 @@ class ETicketMail extends Mailable
 
 
     public $user;
-    public $ticket;
-    public $ticketType;
-    public $pdf;
+    public $tickets;
+    public $ticketTypes;
+    public $pdfs;
     
     /**
      * Create a new message instance.
      */
     public function __construct($user, $ticket, $ticketType, $pdf)
     {
-        $this->user = $user;
-        $this->ticket = $ticket;
-        $this->ticketType = $ticketType;
-        $this->pdf = $pdf;
+    $this->user = $user;
+    $this->tickets = $ticket;
+    $this->ticketTypes = $ticketType;
+    $this->pdfs = $pdf;
     }
 
     /**
@@ -37,8 +37,9 @@ class ETicketMail extends Mailable
      */
     public function envelope(): Envelope
     {
+        $conferenceTitle = isset($this->ticketTypes[0]) ? $this->ticketTypes[0]->conference->title : 'Conference';
         return new Envelope(
-            subject: 'E-Ticket for ' . $this->ticketType->conference->title,
+            subject: 'E-Tickets for ' . $conferenceTitle,
         );
     }
 
@@ -49,6 +50,11 @@ class ETicketMail extends Mailable
     {
         return new Content(
             view: 'ticket_mail',
+            with: [
+                'user' => $this->user,
+                'tickets' => $this->tickets,
+                'ticketTypes' => $this->ticketTypes,
+            ],
         );
     }
 
@@ -60,10 +66,12 @@ class ETicketMail extends Mailable
     public function attachments(): array
     {
 
-        return [
-            Attachment::fromData(function () {
-                return $this->pdf->output();
-            }, 'e-ticket.pdf',  'application/pdf')
-        ];
+        $attachments = [];
+        foreach ($this->pdfs as $pdfData) {
+            $attachments[] = Attachment::fromData(function () use ($pdfData) {
+                return $pdfData['pdf']->output();
+            }, $pdfData['filename'], 'application/pdf');
+        }
+        return $attachments;
     }
 }

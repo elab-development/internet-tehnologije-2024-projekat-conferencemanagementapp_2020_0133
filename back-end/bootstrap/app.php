@@ -37,10 +37,42 @@ return Application::configure(basePath: dirname(__DIR__))
 
 
             if ($e instanceof ValidationException) {
+                $errors = $e->errors();
+
+                if (isset($errors['email']) && collect($errors['email'])->contains(fn($msg) => str_contains($msg, 'already been taken'))) {
+                    return response()->json([
+                        'success' => false,
+                        'message' => "Already registered email.",
+                        'errors' => $errors,
+                        'type' => get_class($e),
+                    ], 422);
+                }
+
+                if (isset($errors['password'])) {
+                    // Provera za potvrdu lozinke
+                    if (collect($errors['password'])->contains(fn($msg) => str_contains($msg, 'confirmation'))) {
+                        return response()->json([
+                            'success' => false,
+                            'message' => "Passwords do not match.",
+                            'errors' => $errors,
+                            'type' => get_class($e),
+                        ], 422);
+                    }
+                    // Provera za minimalnu dužinu lozinke
+                    if (collect($errors['password'])->contains(fn($msg) => str_contains($msg, 'at least'))) {
+                        return response()->json([
+                            'success' => false,
+                            'message' => "Password is too short.",
+                            'errors' => $errors,
+                            'type' => get_class($e),
+                        ], 422);
+                    }
+                }
+
                 return response()->json([
                     'success' => false,
-                    'message' => 'Validation failed',
-                    'errors' => $e->errors(),
+                    'message' => "Validation failed!",
+                    'errors' => $errors,
                     'type' => get_class($e),
                 ], 422);
             }

@@ -16,14 +16,37 @@ class PaperController extends Controller
     public function store(StorePaperRequest $request)
     {
 
-        $filePath = $request['file']->store('papers', 'public');
-        
-        $model = ModelPreparationService::preparePaper($request->validated(), $filePath, Auth::id()) +
+        // Provera da li je korisnik već poslao rad za ovu konferenciju
+        $conferenceId = $request->input('conferenceId');
+        $userId = Auth::id();
+        $alreadySubmitted = Paper::where('conference_id', $conferenceId)
+            ->where('main_author_id', $userId)
+            ->exists();
+
+        if ($alreadySubmitted) {
+            return response()->json([
+                'success' => false,
+                'message' => 'You can only submit one paper per conference.'
+            ], 400);
+        }
+
+        // Provera da li je submission deadline prošao
+        $conference = Conference::findOrFail($conferenceId);
+        if (now()->greaterThan($conference->submission_deadline)) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Submission deadline for this conference has passed.'
+            ], 400);
+        }
+
+        $originalName = $request->file('file')->getClientOriginalName();
+        $uniqueName = time() . '_' . uniqid() . '_' . $originalName;
+        $filePath = $request->file('file')->storeAs('papers', $uniqueName, 'public');
+
+        $model = ModelPreparationService::preparePaper($request->validated(), $filePath, $userId) +
             ['status' => 'Submitted'];
-        
-        $paper = Paper::create(
-            $model
-        );
+
+        $paper = Paper::create($model);
 
         return response()->json([
             'success' => true,
