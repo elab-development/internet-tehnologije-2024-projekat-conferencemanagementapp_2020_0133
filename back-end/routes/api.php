@@ -10,6 +10,7 @@ use App\Http\Controllers\UserConferencesController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\TicketController;
 use App\Http\Controllers\TopicController;
+use App\Http\Controllers\UserController;
 use App\Http\Resources\UserResource;
 
 Route::prefix('auth')->group(function () {
@@ -33,3 +34,4 @@ Route::get('conference/{conference}/papers', [PaperController::class, "getPapers
 ->middleware(['auth:sanctum', 'role:moderator']);
 Route::post('/tickets', [TicketController::class, "purchaseTicket"])->middleware('auth:sanctum');
 Route::get('/topics', TopicController::class);
+Route::middleware('auth:sanctum')->put('/user', [UserController::class, 'update']);
