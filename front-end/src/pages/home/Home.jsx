@@ -9,7 +9,7 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 
 function Home() {
-  const { data, isLoading, isError, error } = useConferences({limit: 10});
+  const { data, isLoading, isError} = useConferences({limit: 10});
   const {
     data: newsData,
     isLoading: isNewsLoading,
