@@ -6,6 +6,7 @@ use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
 use App\Models\User;
 use App\Http\Resources\UserResource;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
@@ -55,6 +56,14 @@ class AuthController extends Controller
             'user' => new UserResource($user),
             'token' => $token,
             'token_type' => 'Bearer'
+        ]);
+    } 
+    public function logout(Request $request)
+    {
+        $request->user()->currentAccessToken()->delete();
+        return response()->json([
+            'success' => true,
+            'message' => 'Logged out successfully.'
         ]);
     }
 }

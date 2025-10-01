@@ -21,6 +21,7 @@ Route::prefix('auth')->group(function () {
     Route::get('/user', function (Request $request) {
         return response()->json(new UserResource($request->user()));
     })->middleware('auth:sanctum');
+    Route::middleware('auth:sanctum')->post('/logout', [\App\Http\Controllers\AuthController::class, 'logout']);
 });
 Route::apiResource('conferences', ConferenceController::class)
     ->only(['index', 'show']);
