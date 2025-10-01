@@ -24,8 +24,8 @@ function ContactPage() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
   return (
-    <div className="w-full flex flex-col-reverse overflow-y-auto lg:flex-row px-8 
-    lg:justify-between lg:px-6 xl:px-36 2xl:px-72 my-32 opacity-0 animate-[fadeInBounce_1s_ease-out_0.5s_forwards] ">
+    <div className="w-full flex flex-col-reverse overflow-y-auto lg:flex-row px-8 lg:
+    lg:justify-between lg:px-6 xl:px-36 2xl:px-48 my-32 opacity-0 animate-[fadeInBounce_1s_ease-out_0.5s_forwards] ">
       <div className="mt-16 h-[60vh] text-start text-lg text-gray-700 flex-schrink-0">
         <h2 className="text-4xl font-semibold text-gray-800">
           Company information

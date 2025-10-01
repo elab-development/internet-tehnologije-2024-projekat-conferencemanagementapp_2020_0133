@@ -1,7 +1,7 @@
 function AboutUsContent() {
     return (
       <section className="my-24 mx-8 opacity-0 animate-[fadeInBounce_1s_ease-out_0.1s_forwards]">
-        <div className="flex flex-col xl:flex-row justify-between space-y-8 xl:space-y-0 xl:space-x-16 xl:px-72">
+        <div className="flex flex-col xl:flex-row justify-between space-y-8 xl:space-y-0 xl:space-x-16 xl:px-40 2xl:px-48">
           <div className="xl:w-1/2 rounded-4xl overflow-hidden border-gray-300 border shadow-2xl px-auto xl:px-0">
             <img
               src="/assets/images/about-us-image-1.jpg"
@@ -35,7 +35,7 @@ function AboutUsContent() {
 
         <div
           className="flex flex-col-reverse xl:flex-row mt-16 xl:mt-32 justify-between
-         space-y-8 xl:space-y-0 xl:space-x-16 xl:px-40 2xl:px-66"
+         space-y-8 xl:space-y-0 xl:space-x-16 xl:px-40 2xl:px-48"
         >
           <div className="w-full xl:w-1/2 flex flex-col justify-around text-gray-700 mx-auto xl:mx-0 space-y-4 my-8 xl:me-8">
             <h2 className="text-3xl font-semibold text-center mx-auto xl:mx-0 xl:text-start">

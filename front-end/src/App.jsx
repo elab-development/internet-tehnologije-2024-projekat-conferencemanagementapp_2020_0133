@@ -17,6 +17,7 @@ import CustomerInfoPage from './pages/customer-info/CustomerInfoPage'
 import DeliveryMethodPage from './pages/delivery-method/DeliveryMethodPage'
 import PaymentPage from './pages/payment/PaymentPage'
 import SubmitPaperPage from './pages/submit-paper/SubmitPaperPage'
+import UserInfoPage from './pages/dashboard/user-info/UserInfoPage'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -25,7 +26,7 @@ function App() {
     <div className="w-full h-full">
       <Toaster position="bottom-right" />
       <Header />
-      <div className="mt-15">
+      <div className="mt-14">
         <Routes>
           <Route path="/conferences" element={<ConferencesPage />} />
           <Route path="/" element={<Home />} />
@@ -40,7 +41,8 @@ function App() {
           <Route path="/order/customer-info" element={<CustomerInfoPage />} />
           <Route path="/order/delivery-method" element={<DeliveryMethodPage/>} />
           <Route path="/order/payment" element={<PaymentPage />} />
-          <Route path='/conference/:id/submit-paper' element={<SubmitPaperPage/>}/>
+          <Route path='/conference/:id/submit-paper' element={<SubmitPaperPage />} />
+          <Route path="/dashboard/user-info" element={<UserInfoPage/>}/>
         </Routes>
       </div>
 

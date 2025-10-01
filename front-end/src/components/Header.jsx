@@ -88,7 +88,7 @@ function Header() {
             Sign in
           </button>
         ) : (
-          <button type="button" className="ml-2" title="User profile">
+          <button type="button" className="ml-2" title="User profile" onClick={() => navigate("/dashboard/user-info")}>
             <FaUserCircle className="text-2xl text-blue-700" />
           </button>
         )}
