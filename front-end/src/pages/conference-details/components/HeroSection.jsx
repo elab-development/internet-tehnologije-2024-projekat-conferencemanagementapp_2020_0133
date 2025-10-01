@@ -1,15 +1,29 @@
 import { FaRegCalendarAlt } from "react-icons/fa";
 import { FaMapMarkerAlt } from "react-icons/fa";
 import dayjs from "dayjs";
-import { useRef } from "react";
+import { useNavigate, useParams } from "react-router";
 
-function HeroSection({ title, start_date, end_date, city, country }) {
+function HeroSection({
+  title,
+  start_date,
+  end_date,
+  city,
+  country,
+  submission_deadline,
+}) {
+  const navigate = useNavigate();
+  const { id } = useParams();
+
   const handleAttendClick = () => {
     const attendSection = document.getElementById("attend-now-section");
     if (attendSection) {
       attendSection.scrollIntoView({ behavior: "smooth" });
     }
   };
+
+  // Provera da li je submission_deadline u budućnosti
+  const showTakeAPart =
+    submission_deadline && dayjs(submission_deadline).isAfter(dayjs(), "day");
 
   return (
     <section
@@ -47,11 +61,14 @@ function HeroSection({ title, start_date, end_date, city, country }) {
           >
             Attend
           </button>
-          <button
-            className="bg-white bg-opacity-80 hover:bg-opacity-100 text-blue-700 font-semibold py-2 px-6 rounded transition"
-          >
-            Take a part
-          </button>
+          {showTakeAPart && (
+            <button
+              onClick={() => navigate(`submit-paper`)}
+              className="bg-white bg-opacity-80 hover:bg-opacity-100 text-blue-700 font-semibold py-2 px-6 rounded transition"
+            >
+              Take a part
+            </button>
+          )}
         </div>
       </div>
     </section>

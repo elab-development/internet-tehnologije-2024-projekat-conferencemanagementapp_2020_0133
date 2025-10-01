@@ -34,6 +34,7 @@ function ConferenceDetailsPage() {
         end_date={conference.end_date}
         city={conference.city}
         country={conference.country}
+        submission_deadline={conference.submission_deadline}
       />
       <div className="px-4 md:px-8 lg:px-16 flex flex-col md:flex-row gap-6 mt-6">
         <div className="flex-1">

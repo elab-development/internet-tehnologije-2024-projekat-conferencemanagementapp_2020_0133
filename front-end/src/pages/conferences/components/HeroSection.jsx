@@ -2,7 +2,7 @@ import { useState } from "react";
 import { IoSearchOutline } from "react-icons/io5";
 
 function HeroSection({ value , onValueChange, onClick}) {
-  
+
 
   return (
     <section className="w-full h-[40vh] mt-15">

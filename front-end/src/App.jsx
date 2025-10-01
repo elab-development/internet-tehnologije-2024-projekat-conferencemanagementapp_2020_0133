@@ -16,6 +16,7 @@ import CartPage from './pages/cart/CartPage'
 import CustomerInfoPage from './pages/customer-info/CustomerInfoPage'
 import DeliveryMethodPage from './pages/delivery-method/DeliveryMethodPage'
 import PaymentPage from './pages/payment/PaymentPage'
+import SubmitPaperPage from './pages/submit-paper/SubmitPaperPage'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -38,7 +39,8 @@ function App() {
           <Route path="/order/cart" element={<CartPage />} />
           <Route path="/order/customer-info" element={<CustomerInfoPage />} />
           <Route path="/order/delivery-method" element={<DeliveryMethodPage/>} />
-          <Route path="/order/payment" element={<PaymentPage/>} />
+          <Route path="/order/payment" element={<PaymentPage />} />
+          <Route path='/conference/:id/submit-paper' element={<SubmitPaperPage/>}/>
         </Routes>
       </div>
 

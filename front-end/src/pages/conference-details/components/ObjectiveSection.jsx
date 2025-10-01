@@ -19,7 +19,7 @@ function ObjectiveSection({ description, topics = [] }) {
                   key={idx}
                   className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium"
                 >
-                  {topic}
+                  {topic.name}
                 </li>
               ))}
             </ul>
