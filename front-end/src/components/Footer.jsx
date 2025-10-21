@@ -29,11 +29,11 @@ function Footer() {
           </div>
           <div className="flex items-center gap-2 text-cyan-400">
             <FaEnvelope />
-            <span>info@internationalconferencealerts.com</span>
+            <span>support@confe.com</span>
           </div>
           <div className="flex items-center gap-2 text-cyan-400">
             <FaPhoneAlt />
-            <span>+91-8925031783</span>
+            <span>+381612345678</span>
           </div>
           <div className="mt-4 font-bold text-cyan-400">FOLLOW US</div>
           <div className="flex gap-3 mt-2">
@@ -57,7 +57,7 @@ function Footer() {
             </button>
           </div>
         </div>
-        
+
         <div className="flex-1 min-w-[220px]">
           <div className="font-bold text-cyan-400 mb-4">QUICK LINKS</div>
           <ul className="flex flex-col gap-2">

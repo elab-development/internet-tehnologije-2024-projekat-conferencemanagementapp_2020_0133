@@ -1,5 +1,6 @@
 import React, { useRef, useState } from "react";
 import { useNavigate } from "react-router";
+import Spinner from "../../../components/Spinner";
 
 function UpcomingConferencesSection({ data, isLoading, isError }) {
   const scrollContainerRef = useRef(null);
@@ -41,8 +42,8 @@ function UpcomingConferencesSection({ data, isLoading, isError }) {
         Upcoming Conferences
       </h3>
       {isLoading && (
-        <div className="flex justify-center h-[30vh]">
-          <p className="my-auto">Loading...</p>
+        <div className="flex justify-center items-center h-[30vh]">
+          <Spinner size="w-6 h-6" />
         </div>
       )}
       {isError && (

@@ -4,6 +4,7 @@ import { useNavigate, useLocation, Link } from "react-router";
 import { toast } from "sonner";
 import { useUser } from "../../context/UserContext"; // Dodaj import
 import FormInput from "../../components/FormInput";
+import Button from "../../components/Button";
 
 function LoginPage() {
   const [form, setForm] = useState({
@@ -110,13 +111,14 @@ function LoginPage() {
                 Forgot password?
               </Link>
             </div>
-            <button
+            <Button
               type="submit"
-              className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 rounded transition"
+              className="w-full"
+              loading={login.isLoading}
               disabled={login.isLoading}
             >
               {login.isLoading ? "Signing In..." : "Sign In"}
-            </button>
+            </Button>
             <div className="text-center text-gray-600 text-sm mt-2">
               Don't have an account?{" "}
               <a

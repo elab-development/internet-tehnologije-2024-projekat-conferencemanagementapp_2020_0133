@@ -20,6 +20,7 @@ import SubmitPaperPage from './pages/submit-paper/SubmitPaperPage'
 import UserInfoPage from './pages/dashboard/user-info/UserInfoPage'
 import MyPapersPage from './pages/dashboard/my-papers/MyPapersPage'
 import MyConferencesPage from './pages/dashboard/my-conferences/MyConferencesPage'
+import MyReviewsPage from './pages/dashboard/my-reviews/MyReviewsPage'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -47,6 +48,7 @@ function App() {
           <Route path="/dashboard/user-info" element={<UserInfoPage/>}/>
           <Route path="/dashboard/my-papers" element={<MyPapersPage/>}/>
           <Route path="/dashboard/my-conferences" element={<MyConferencesPage/>}/>
+          <Route path="/dashboard/my-reviews" element={<MyReviewsPage/>}/>
         </Routes>
       </div>
 

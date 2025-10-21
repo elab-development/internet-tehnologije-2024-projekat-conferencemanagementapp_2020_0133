@@ -5,6 +5,7 @@ import { countries } from "countries-list";
 import { toast } from "sonner";
 import { useUser } from "../../context/UserContext";
 import FormInput from "../../components/FormInput";
+import Button from "../../components/Button";
 
 function RegisterPage() {
   const [form, setForm] = useState({
@@ -222,13 +223,14 @@ function RegisterPage() {
               value={form.password_confirmation}
               onChange={handleChange}
             />
-            <button
+            <Button
               type="submit"
-              className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 rounded transition"
+              className="w-full"
+              loading={register.isLoading}
               disabled={register.isLoading}
             >
               {register.isLoading ? "Signing Up..." : "Sign Up"}
-            </button>
+            </Button>
             <div className="text-center text-gray-600 text-sm mt-2">
               Already have an account?{" "}
               <a

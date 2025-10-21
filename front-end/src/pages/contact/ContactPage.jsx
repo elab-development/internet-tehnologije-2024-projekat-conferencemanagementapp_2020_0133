@@ -2,6 +2,7 @@ import { useState } from "react";
 import InputField from "./components/InputField";
 import TextAreaInput from "./components/TextAreaInput";
 import { toast } from "sonner";
+import ContactMap from "./components/ContactMap";
 
 function ContactPage() {
   const [formData, setFormData] = useState({
@@ -10,6 +11,8 @@ function ContactPage() {
     email: "",
     message: "",
   });
+  const [mapOpen, setMapOpen] = useState(false);
+
   const handleSubmition = (e) => {
     e.preventDefault();
     setFormData({
@@ -18,14 +21,18 @@ function ContactPage() {
       email: "",
       message: "",
     });
-      toast.success("Successfully sent message! We will answer you in shortest time possible.");
+    toast.success(
+      "Successfully sent message! We will answer you in shortest time possible."
+    );
   };
   const onValueChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
   return (
-    <div className="w-full flex flex-col-reverse overflow-y-auto lg:flex-row px-8 lg:
-    lg:justify-between lg:px-6 xl:px-36 2xl:px-48 my-32 opacity-0 animate-[fadeInBounce_1s_ease-out_0.5s_forwards] ">
+    <div
+      className="w-full flex flex-col-reverse overflow-y-auto lg:flex-row px-8 lg:
+    lg:justify-between lg:px-6 xl:px-36 2xl:px-48 my-32 opacity-0 animate-[fadeInBounce_1s_ease-out_0.5s_forwards] "
+    >
       <div className="mt-16 h-[60vh] text-start text-lg text-gray-700 flex-schrink-0">
         <h2 className="text-4xl font-semibold text-gray-800">
           Company information
@@ -34,6 +41,17 @@ function ContactPage() {
           Jove Ilica 154, <br />
           Belgrade, Serbia, <br />
           11010
+          <br />
+          <a
+            href="#"
+            onClick={(e) => {
+              e.preventDefault();
+              setMapOpen(true);
+            }}
+            className="text-blue-600 hover:underline"
+          >
+            See on map
+          </a>
         </p>
         <p className="">
           Sales:{" "}
@@ -88,13 +106,17 @@ function ContactPage() {
           <TextAreaInput
             className="mt-8 max-h-[15vh] h-64"
             label={"Message"}
-            value={formData.description}
+            value={formData.message}
             onValueChange={onValueChange}
             name={"message"}
           />
-          <button className="mt-16 px-4 py-3 rounded-2xl  text-white bg-blue-600 hover:bg-blue-700">Submit</button>
+          <button className="mt-16 px-4 py-3 rounded-2xl  text-white bg-blue-600 hover:bg-blue-700">
+            Submit
+          </button>
         </form>
       </div>
+
+      <ContactMap open={mapOpen} onClose={() => setMapOpen(false)} />
     </div>
   );
 }

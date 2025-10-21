@@ -16,7 +16,9 @@ function ConferencesPage() {
     return {
       search: params.get("search") || "",
       country: params.getAll("country"),
-      topic: params.getAll("topic"),
+      topic: params
+        .getAll("topic")
+        .map((t) => (isNaN(Number(t)) ? t : Number(t))),
       sortBy: params.get("sortBy") || "asc",
       limit: Number(params.get("limit")) || 20,
       page: Number(params.get("page")) || 0,
@@ -111,7 +113,20 @@ function ConferencesPage() {
         <FilterSection
           state={filter}
           onValueChange={handleCheckboxChange}
-          onFilter={() => onFiltersChange({ ...filter })}
+          onFilter={(newFilter) => {
+            // Apply the local filters coming from FilterSection only when user clicks "Filter"
+            // ensure topic ids are numbers
+            const normalized = {
+              ...newFilter,
+              topic: Array.isArray(newFilter.topic)
+                ? newFilter.topic.map((t) => (isNaN(Number(t)) ? t : Number(t)))
+                : [],
+              page: 0,
+            };
+            onFilterChange(normalized);
+            onFiltersChange(normalized);
+            syncQuery(normalized);
+          }}
           clearFilter={clearFilter}
         />
         <ConferenceListSection

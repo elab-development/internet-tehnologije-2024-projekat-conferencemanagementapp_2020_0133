@@ -19,6 +19,7 @@ const conferenceTypes = [
 function AddConferenceSection({ onBack, editConferenceId }) {
   const [topics, setTopics] = useState([]);
   const [saving, setSaving] = useState(false);
+  const [deleting, setDeleting] = useState(false);
   const [loading, setLoading] = useState(!!editConferenceId);
 
   // Form state
@@ -219,6 +220,30 @@ function AddConferenceSection({ onBack, editConferenceId }) {
     }
   };
 
+  const handleDelete = async () => {
+    if (!editConferenceId) return;
+    const ok = window.confirm(
+      "Are you sure you want to delete this conference? This action cannot be undone."
+    );
+    if (!ok) return;
+    setDeleting(true);
+    try {
+      await axiosConferenceInstance.delete(`/conferences/${editConferenceId}`);
+      toast.success("Conference deleted");
+      onBack();
+    } catch (err) {
+      const status = err?.response?.status;
+      let msg =
+        err?.response?.data?.message ??
+        err?.message ??
+        "Failed to delete conference";
+      if (status) msg += ` (status: ${status})`;
+      toast.error(msg);
+    } finally {
+      setDeleting(false);
+    }
+  };
+
   if (loading) {
     return (
       <div className="flex justify-center items-center min-h-[300px]">
@@ -228,13 +253,23 @@ function AddConferenceSection({ onBack, editConferenceId }) {
   }
 
   return (
-    <div className="bg-white rounded-xl shadow p-6 md:p-8">
+    <div className="bg-white rounded-xl shadow p-6 md:p-8 relative">
       <button
         className="mb-4 text-blue-600 hover:underline font-medium"
         onClick={onBack}
       >
         &larr; Back
       </button>
+      {editConferenceId && (
+        <button
+          type="button"
+          onClick={handleDelete}
+          disabled={deleting}
+          className="absolute top-4 right-4 bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded text-sm"
+        >
+          {deleting ? "Deleting..." : "Delete"}
+        </button>
+      )}
       <h2 className="text-2xl font-bold mb-4">Add Conference</h2>
       <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
         <div className="flex flex-col md:flex-row gap-4">
