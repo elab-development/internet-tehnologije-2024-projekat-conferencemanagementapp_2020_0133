@@ -95,7 +95,7 @@ class TicketController extends Controller
             return response()->json([
                 'success' => true,
                 'message' => 'Tickets purchased successfully.'
-            ]);
+            ], 201);
         } catch (\Exception $e) {
             DB::rollBack();
             return response()->json([

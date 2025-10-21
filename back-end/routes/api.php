@@ -27,12 +27,15 @@ Route::apiResource('conferences', ConferenceController::class)
     ->only(['index', 'show']);
 Route::apiResource('/conferences', ConferenceController::class)
     ->middleware(['auth:sanctum', 'role:organizer'])->except(['index', 'show']);
-Route::get('/user/{id}/conferences', UserConferencesController::class)
+Route::get('/user/conferences', UserConferencesController::class)
     ->middleware(['auth:sanctum', 'role:organizer']);
-Route::post('/reviews', ReviewController::class)->middleware(['auth:sanctum', 'role:moderator']);
+Route::post('/reviews', ReviewController::class)->middleware(['auth:sanctum', 'role:organizer|moderator']);
 Route::post('/papers', [PaperController::class, 'store'])->middleware(['auth:sanctum']);
 Route::get('conference/{conference}/papers', [PaperController::class, "getPapersOfConference"])
-->middleware(['auth:sanctum', 'role:moderator']);
+->middleware(['auth:sanctum', 'role:organizer|moderator']);
 Route::post('/tickets', [TicketController::class, "purchaseTicket"])->middleware('auth:sanctum');
 Route::get('/topics', TopicController::class);
 Route::middleware('auth:sanctum')->put('/user', [UserController::class, 'update']);
+Route::middleware('auth:sanctum')->get('/my-papers', [\App\Http\Controllers\PaperController::class, 'myPapers']);
+Route::middleware('auth:sanctum')->get('/my-conferences', [\App\Http\Controllers\ConferenceController::class, 'myConferences']);
+Route::middleware('auth:sanctum')->get('/papers/{paper}', [\App\Http\Controllers\PaperController::class, 'show']);

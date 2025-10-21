@@ -41,7 +41,7 @@ class PaperController extends Controller
 
         $originalName = $request->file('file')->getClientOriginalName();
         $uniqueName = time() . '_' . uniqid() . '_' . $originalName;
-        $filePath = $request->file('file')->storeAs('papers', $uniqueName, 'public');
+        $filePath = 'storage/' . $request->file('file')->storeAs('papers', $uniqueName, 'public');
 
         $model = ModelPreparationService::preparePaper($request->validated(), $filePath, $userId) +
             ['status' => 'Submitted'];
@@ -57,12 +57,19 @@ class PaperController extends Controller
 
 
     public function getPapersOfConference(Conference $conference){
-        $papers = $conference->papers()->with(['mainAuthor', 'topic'])->get();
-        return response()->json([
-            'success' => true,
-            'message' => 'Founded papers',
-            'data' => $papers
-        ], 200);
+        $papers = $conference->papers()->with(['mainAuthor', 'topic', 'reviews'])->paginate(12);
+        return response()->json($papers, 200);
 }
+    public function myPapers()
+    {
+        $userId = Auth::id();
+        $papers = Paper::where('main_author_id', $userId)->with(['conference', 'topic'])->get();
+        return response()->json($papers);
+    }
+    public function show(Paper $paper)
+    {
+        $paper->load(['conference', 'mainAuthor', 'topic', 'reviews']);
+        return response()->json($paper, 200);
+    }
 
 }

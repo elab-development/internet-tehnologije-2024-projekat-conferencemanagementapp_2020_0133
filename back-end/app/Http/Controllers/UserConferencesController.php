@@ -12,15 +12,18 @@ class UserConferencesController extends Controller
     /**
      * Handle the incoming request.
      */
-    public function __invoke($id, Request $request)
+    public function __invoke(Request $request)
     {
-        $id = $request->route('id');
-        $user = User::findOrFail($id);
+        $user = $request->user();
+        $query = Conference::where('created_by', $user->id);
 
-    $conferences = Conference::where('created_by', $user->id)->get();
+        if ($request->has('search') && $request->filled('search')) {
+            $search = $request->input('search');
+            $query->where('title', 'like', '%' . $search . '%');
+        }
 
-    return ConferencePreviewResource::collection($conferences)
-    ->response()
-    ->setStatusCode(200);
+        $conferences = $query->paginate(12);
+
+        return ConferencePreviewResource::collection($conferences);
     }
 }

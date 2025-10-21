@@ -91,6 +91,26 @@ class ConferenceController extends Controller
 
     }
 
+    public function myConferences(Request $request)
+    {
+        $user = $request->user();
 
-    
+        // Group owner/moderator conditions so subsequent where() applies to the whole group
+        $query = Conference::where(function ($q) use ($user) {
+            $q->where('created_by', $user->id)
+              ->orWhereHas('moderators', function ($q2) use ($user) {
+                  $q2->where('user_id', $user->id);
+              });
+        })->with(['moderators', 'topics']);
+
+        if ($request->has('search') && $request->filled('search')) {
+            $search = $request->input('search');
+            $query->where('title', 'like', '%' . $search . '%');
+        }
+
+        $conferences = $query->orderBy('start_date', $request->input('sortBy', 'asc'))
+                              ->paginate($request->input('limit', 12));
+
+        return ConferenceDetailResource::collection($conferences);
+    }
 }
