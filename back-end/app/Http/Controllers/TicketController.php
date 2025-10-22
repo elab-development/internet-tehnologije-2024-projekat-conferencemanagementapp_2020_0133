@@ -28,7 +28,7 @@ class TicketController extends Controller
 
         DB::beginTransaction();
         try {
-            foreach ($request->input('tickets') as $ticketData) {
+            foreach ($request['tickets'] as $ticketData) {
                 $ticketType = TicketType::findOrFail($ticketData['ticketTypeId']);
                 $conferenceId = $ticketType->conference_id;
                 $totalQuantity = $ticketType->quantity;
@@ -63,7 +63,7 @@ class TicketController extends Controller
                 $ticket = Ticket::create([
                     'ticket_type_id' => $ticketType->id,
                     'user_id' => $user->id,
-                    'payment_method' => $request->input('paymentMethod'),
+                    'payment_method' => $request['paymentMethod'],
                     'delivery_method' => 'E-ticket',
                     'qr_code' => $qrText,
                 ]);
@@ -95,7 +95,7 @@ class TicketController extends Controller
             return response()->json([
                 'success' => true,
                 'message' => 'Tickets purchased successfully.'
-            ], 201);
+            ], 200);
         } catch (\Exception $e) {
             DB::rollBack();
             return response()->json([
