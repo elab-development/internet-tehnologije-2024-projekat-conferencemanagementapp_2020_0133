@@ -84,13 +84,13 @@ function RegisterPage() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100 p-4">
-      <div className="bg-white rounded-2xl shadow-lg flex flex-col md:flex-row w-full max-w-4xl overflow-hidden">
+      <div className="bg-white rounded-2xl shadow-lg flex flex-col md:flex-row w-full max-w-6xl overflow-hidden">
         {/* Leva strana */}
-        <div className="md:w-1/2 flex flex-col justify-center items-center bg-blue-50 p-8">
+        <div className="md:w-1/2 flex flex-col justify-center items-center bg-blue-50 p-10">
           <img
             src="/assets/images/undraw_sign-up.png"
             alt="Sign Up Illustration"
-            className="w-64 max-w-full mb-6"
+            className="w-72 max-w-full mb-6"
           />
           <h1 className="text-3xl font-bold mb-4 text-blue-900 text-center">
             Join the community 🚀
@@ -107,7 +107,7 @@ function RegisterPage() {
         <div className="md:w-1/2 flex items-center justify-center p-8">
           <form
             onSubmit={handleSubmit}
-            className="w-full max-w-sm mx-auto flex flex-col gap-5"
+            className="w-full max-w-xl mx-auto flex flex-col gap-6 px-8"
             autoComplete="off"
           >
             <h2 className="text-2xl font-semibold text-gray-900 mb-2 text-center">

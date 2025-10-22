@@ -1,4 +1,7 @@
+import { useNavigate } from "react-router";
+
 function JoinUsSection() {
+  const navigate = useNavigate();
   return (
     <section className=" py-16 mx-8 text-center">
       <h2 className="text-center font-bold text-4xl">
@@ -23,6 +26,7 @@ function JoinUsSection() {
           <button
             className="w-full max-w-64 mt-16 px-6 py-2 bg-blue-600 text-white rounded-full hover:bg-blue-700
            transition-colors duration-300"
+            onClick={() => navigate("/conferences")}
           >
             Browse Conferences
           </button>
@@ -40,6 +44,7 @@ function JoinUsSection() {
           <button
             className="w-full max-w-64 mt-16 px-6 py-2 bg-blue-600 text-white rounded-full hover:bg-blue-700
            transition-colors duration-300"
+            onClick={() => navigate("/contact")}
           >
             Contact Us
           </button>
